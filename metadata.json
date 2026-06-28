@@ -1,0 +1,6 @@
+{
+  "name": "Apotek Digital",
+  "description": "Situs web resmi Apotek Digital - Solusi farmasi modern, cepat, terpercaya, dan cek ketersediaan obat secara real-time.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

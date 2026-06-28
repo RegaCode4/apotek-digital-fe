@@ -1,0 +1,86 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { MessageCircle, X } from 'lucide-react';
+import { pharmacyProfile } from '../data/mockData';
+
+export default function FloatingWhatsApp() {
+  const [showTooltip, setShowTooltip] = useState(false);
+
+  // Automatically trigger WhatsApp welcome tooltip after 4 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowTooltip(true);
+    }, 4500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const preFilledWhatsAppMessage = encodeURIComponent(
+    `Halo Apoteker ${pharmacyProfile.name}, saya ingin memesan obat dan konsultasi resep dokter secara online.`
+  );
+
+  return (
+    <div id="floating-whatsapp-container" className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3 select-none">
+      
+      {/* Dynamic Pop-up Tooltip */}
+      <AnimatePresence>
+        {showTooltip && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, y: 15 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            className="bg-white p-4 rounded-2xl shadow-xl border border-slate-100 max-w-[260px] relative text-slate-800"
+            id="whatsapp-greeting-tooltip"
+          >
+            {/* Close button */}
+            <button
+              onClick={() => setShowTooltip(false)}
+              className="absolute top-2 right-2 text-slate-400 hover:text-slate-600 focus:outline-none"
+              aria-label="Tutup sapaan"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+
+            <div className="space-y-1">
+              <span className="text-[10px] bg-emerald-50 text-emerald-600 font-bold px-2 py-0.5 rounded-md block w-fit">
+                Online Apoteker
+              </span>
+              <p className="text-xs font-semibold navy-dark pt-1">
+                Butuh Bantuan Cepat?
+              </p>
+              <p className="text-[11px] text-slate-500 leading-normal font-light">
+                Konsultasikan dosis obat dan tebus resep dokter instan via WhatsApp di sini.
+              </p>
+            </div>
+
+            {/* Micro speech bubble triangle */}
+            <div className="absolute bottom-[-6px] right-6 w-3 h-3 bg-white border-r border-b border-slate-100 rotate-45" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Floating Button */}
+      <div className="relative">
+        
+        {/* Pulsing Back aura ring */}
+        <div className="absolute inset-0 rounded-full bg-emerald-500/25 wa-pulse scale-125 -z-10" />
+
+        <a
+          id="whatsapp-floating-action-button"
+          href={`https://wa.me/6282278954406?text=${preFilledWhatsAppMessage}`}
+          target="_blank"
+          rel="noreferrer"
+          className="w-14 h-14 rounded-full bg-emerald-500 hover:bg-emerald-600 flex items-center justify-center text-white shadow-lg hover:shadow-emerald-500/35 hover:scale-105 active:scale-95 transition-all outline-none"
+          aria-label="Mulai Obrolan WhatsApp"
+        >
+          <MessageCircle className="w-7 h-7 fill-white text-emerald-500" />
+        </a>
+      </div>
+
+    </div>
+  );
+}
