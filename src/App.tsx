@@ -15,16 +15,18 @@ import ContactSection from './components/ContactSection';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import Footer from './components/Footer';
 import { useMedicines } from './hooks/useMedicines';
+import { useDarkMode } from './hooks/useDarkMode';
 
 export default function App() {
   const [selectedCategory, setSelectedCategory] = useState<string>('semua');
   const { medicines, isLoading, error, refetch } = useMedicines();
+  const { isDark, toggleDark } = useDarkMode();
 
   return (
-    <div id="app-viewport-root" className="min-h-screen flex flex-col justify-between selection:bg-mint-green selection:text-navy-dark">
+    <div id="app-viewport-root" className="min-h-screen flex flex-col justify-between selection:bg-mint-green selection:text-navy-dark dark:bg-navy-dark dark:text-slate-200">
       
       {/* Sticky Header Navbar */}
-      <Navbar />
+      <Navbar isDark={isDark} toggleDark={toggleDark} />
 
       {/* Main Page Layout Sections */}
       <main className="flex-grow">

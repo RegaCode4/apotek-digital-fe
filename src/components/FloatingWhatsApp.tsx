@@ -33,32 +33,32 @@ export default function FloatingWhatsApp() {
             initial={{ opacity: 0, scale: 0.8, y: 15 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8 }}
-            className="bg-white p-4 rounded-2xl shadow-xl border border-slate-100 max-w-[260px] relative text-slate-800"
+            className="bg-white dark:bg-navy-charcoal p-4 rounded-2xl shadow-xl border border-slate-100 dark:border-white/10 max-w-[260px] relative text-slate-800 dark:text-slate-200"
             id="whatsapp-greeting-tooltip"
           >
             {/* Close button */}
             <button
               onClick={() => setShowTooltip(false)}
-              className="absolute top-2 right-2 text-slate-400 hover:text-slate-600 focus:outline-none"
+              className="absolute top-2 right-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 focus:outline-none"
               aria-label="Tutup sapaan"
             >
               <X className="w-3.5 h-3.5" />
             </button>
 
             <div className="space-y-1">
-              <span className="text-[10px] bg-emerald-50 text-emerald-600 font-bold px-2 py-0.5 rounded-md block w-fit">
+              <span className="text-[10px] bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold px-2 py-0.5 rounded-md block w-fit">
                 Online Apoteker
               </span>
-              <p className="text-xs font-semibold navy-dark pt-1">
+              <p className="text-xs font-semibold text-navy-dark dark:text-white pt-1">
                 Butuh Bantuan Cepat?
               </p>
-              <p className="text-[11px] text-slate-500 leading-normal font-light">
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-normal font-light">
                 Konsultasikan dosis obat dan tebus resep dokter instan via WhatsApp di sini.
               </p>
             </div>
 
             {/* Micro speech bubble triangle */}
-            <div className="absolute bottom-[-6px] right-6 w-3 h-3 bg-white border-r border-b border-slate-100 rotate-45" />
+            <div className="absolute bottom-[-6px] right-6 w-3 h-3 bg-white dark:bg-navy-charcoal border-r border-b border-slate-100 dark:border-white/10 rotate-45" />
           </motion.div>
         )}
       </AnimatePresence>

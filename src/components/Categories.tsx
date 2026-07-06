@@ -33,7 +33,7 @@ export default function Categories({ selectedCategory, setSelectedCategory, medi
   };
 
   return (
-    <section id="kategori-obat" className="py-20 md:py-24 bg-slate-50/50 border-y border-slate-100">
+    <section id="kategori-obat" className="py-20 md:py-24 bg-slate-50/50 dark:bg-navy-charcoal/30 border-y border-slate-100 dark:border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Title Block */}
@@ -42,10 +42,10 @@ export default function Categories({ selectedCategory, setSelectedCategory, medi
             <span className="text-xs font-bold text-teal-glow tracking-widest uppercase bg-mint-green/10 px-3 py-1.5 rounded-full">
               Katalog Farmasi
             </span>
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-navy-dark tracking-tight mt-3">
+            <h2 className="text-3xl sm:text-4xl font-display font-bold text-navy-dark dark:text-white tracking-tight mt-3">
               Telusuri Berdasarkan Kategori Obat
             </h2>
-            <p className="text-slate-500 mt-4 leading-relaxed font-light">
+            <p className="text-slate-500 dark:text-slate-400 mt-4 leading-relaxed font-light">
               Pilih klaster obat di bawah ini untuk melihat ketersediaan stok, takaran dosis umum, informasi kewajiban resep praktisi medis, dan penawaran harganya secara instan.
             </p>
           </SectionReveal>
@@ -81,31 +81,33 @@ export default function Categories({ selectedCategory, setSelectedCategory, medi
                     className={`h-full flex flex-col justify-between p-6 rounded-2xl border cursor-pointer outline-none transition-all duration-300 group ${
                       isSelected
                         ? 'bg-navy-dark border-mint-green text-white shadow-xl scale-[1.03] shadow-mint-green/10'
-                        : 'bg-white border-slate-100 hover:border-mint-green text-slate-700 hover:shadow-lg hover:scale-[1.02] hover:-translate-y-1'
+                        : 'bg-white dark:bg-navy-charcoal border-slate-100 dark:border-white/10 hover:border-mint-green text-slate-700 dark:text-slate-300 hover:shadow-lg hover:scale-[1.02] hover:-translate-y-1'
                     }`}
                   >
                     <div className="space-y-4">
                       <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-colors ${
                         isSelected
                           ? 'bg-mint-green/10 text-mint-green'
-                          : 'bg-emerald-50 text-teal-glow group-hover:bg-mint-green/10 group-hover:text-teal-glow'
+                          : 'bg-emerald-50 dark:bg-emerald-500/10 text-teal-glow group-hover:bg-mint-green/10 group-hover:text-teal-glow'
                       }`}>
                         <IconComponent className="w-6 h-6" />
                       </div>
                       <div>
                         <h3 className={`font-display font-bold text-base transition-colors ${
-                          isSelected ? 'text-white' : 'text-navy-dark group-hover:text-teal-glow'
+                          isSelected ? 'text-white' : 'text-navy-dark dark:text-white group-hover:text-teal-glow'
                         }`}>
                           {cat.name}
                         </h3>
                         <p className={`text-xs mt-1 leading-relaxed ${
-                          isSelected ? 'text-slate-400 font-light' : 'text-slate-500 font-light'
+                          isSelected ? 'text-slate-400 font-light' : 'text-slate-500 dark:text-slate-400 font-light'
                         }`}>
                           {cat.description}
                         </p>
                       </div>
                     </div>
-                    <div className="mt-8 pt-4 border-t border-dashed border-slate-100 flex items-center justify-between">
+                    <div className={`mt-8 pt-4 border-t border-dashed flex items-center justify-between ${
+                      isSelected ? 'border-slate-100/20' : 'border-slate-100 dark:border-white/10'
+                    }`}>
                       <span className={`text-[11px] font-mono ${
                         isSelected ? 'text-mint-green' : 'text-slate-400 font-semibold'
                       }`}>

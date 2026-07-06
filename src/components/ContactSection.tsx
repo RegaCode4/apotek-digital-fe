@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Send, Mail, Clock, CheckCircle2, AlertCircle, MessageSquare } from 'lucide-react';
 import { pharmacyProfile } from '../data/mockData';
 import SectionReveal from './ui/SectionReveal';
+import CustomSelect from './ui/CustomSelect';
 
 interface ContactFormInputs {
   name: string;
@@ -19,7 +20,13 @@ interface ContactFormInputs {
 
 export default function ContactSection() {
   const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
-  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<ContactFormInputs>();
+  const { register, handleSubmit, reset, setValue, watch, formState: { errors, isSubmitting } } = useForm<ContactFormInputs>({
+    defaultValues: {
+      serviceType: "Tanya Ketersediaan Obat"
+    }
+  });
+
+  const serviceTypeValue = watch("serviceType");
 
   const onSubmitForm: SubmitHandler<ContactFormInputs> = async (data) => {
     const messageText = `Halo Apotek Digital, saya ingin menghubungi Anda.
@@ -44,8 +51,8 @@ Pesan: ${data.message}`;
   };
 
   return (
-    <section id="kontak" className="py-20 md:py-28 bg-slate-50/50 relative border-t border-slate-100">
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-mint-green/5 rounded-full blur-3xl pointer-events-none" />
+    <section id="kontak" className="py-20 md:py-28 bg-slate-50/50 dark:bg-navy-charcoal/30 relative border-t border-slate-100 dark:border-white/5">
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-mint-green/5 dark:bg-mint-green/3 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         
@@ -57,10 +64,10 @@ Pesan: ${data.message}`;
               <span className="text-xs font-bold text-teal-glow tracking-widest uppercase bg-mint-green/10 px-3 py-1.5 rounded-full inline-block">
                 Hubungi Kami
               </span>
-              <h2 className="text-3xl sm:text-4xl font-display font-bold text-navy-dark tracking-tight leading-none">
+              <h2 className="text-3xl sm:text-4xl font-display font-bold text-navy-dark dark:text-white tracking-tight leading-none">
                 Hubungi & Konsultasi Sekarang
               </h2>
-              <p className="text-slate-500 font-light leading-relaxed">
+              <p className="text-slate-500 dark:text-slate-400 font-light leading-relaxed">
                 Butuh asupan khusus, tebus resep obat keras, atau memiliki pertanyaan seputar cara mengonsumsi obat bebas secara berkala? Jangan sungkan untuk menghubungi tim ahli kami.
               </p>
             </div>
@@ -68,8 +75,8 @@ Pesan: ${data.message}`;
             {/* Icons deck */}
             <div className="space-y-4">
               
-              <div className="p-4 rounded-xl bg-white border border-slate-100 flex items-center gap-4 hover:border-mint-green/20 transition-colors">
-                <div className="w-10 h-10 rounded-lg bg-emerald-50 text-teal-glow flex items-center justify-center shrink-0">
+              <div className="p-4 rounded-xl bg-white dark:bg-navy-charcoal border border-slate-100 dark:border-white/10 flex items-center gap-4 hover:border-mint-green/20 transition-colors">
+                <div className="w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 text-teal-glow flex items-center justify-center shrink-0">
                   <MessageSquare className="w-5 h-5" />
                 </div>
                 <div>
@@ -85,28 +92,28 @@ Pesan: ${data.message}`;
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl bg-white border border-slate-100 flex items-center gap-4 hover:border-mint-green/20 transition-colors">
-                <div className="w-10 h-10 rounded-lg bg-emerald-50 text-teal-glow flex items-center justify-center shrink-0">
+              <div className="p-4 rounded-xl bg-white dark:bg-navy-charcoal border border-slate-100 dark:border-white/10 flex items-center gap-4 hover:border-mint-green/20 transition-colors">
+                <div className="w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 text-teal-glow flex items-center justify-center shrink-0">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
                   <span className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase block">EMAIL KELUHAN / MEDIS</span>
                   <a
                     href="mailto:apotekdigital@gmail.com"
-                    className="text-sm font-bold text-navy-dark hover:text-teal-glow hover:underline"
+                    className="text-sm font-bold text-navy-dark dark:text-slate-200 hover:text-teal-glow hover:underline"
                   >
                     {pharmacyProfile.email}
                   </a>
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl bg-white border border-slate-100 flex items-center gap-4 hover:border-mint-green/20 transition-colors">
-                <div className="w-10 h-10 rounded-lg bg-emerald-50 text-teal-glow flex items-center justify-center shrink-0">
+              <div className="p-4 rounded-xl bg-white dark:bg-navy-charcoal border border-slate-100 dark:border-white/10 flex items-center gap-4 hover:border-mint-green/20 transition-colors">
+                <div className="w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 text-teal-glow flex items-center justify-center shrink-0">
                   <Clock className="w-5 h-5" />
                 </div>
                 <div>
                   <span className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase block">JAM SINKRONISASI SISTEM</span>
-                  <p className="text-sm font-bold text-navy-dark">Mengikuti Jam Kerja Operasional Fisik</p>
+                  <p className="text-sm font-bold text-navy-dark dark:text-slate-200">Mengikuti Jam Kerja Operasional Fisik</p>
                 </div>
               </div>
 
@@ -114,10 +121,10 @@ Pesan: ${data.message}`;
           </div>
 
           {/* Right Column: Interactive client contact form */}
-          <div className="lg:col-span-7 bg-white p-8 rounded-[32px] border border-slate-100 shadow-sm relative overflow-hidden">
+          <div className="lg:col-span-7 bg-white dark:bg-navy-charcoal p-8 rounded-[32px] border border-slate-100 dark:border-white/10 shadow-sm relative overflow-hidden">
             <div className="absolute top-0 right-0 w-24 h-2 bg-gradient-to-l from-mint-green to-teal-glow" />
 
-            <h3 className="font-display font-bold text-xl text-navy-dark mb-2">Formulir Pesan Cepat</h3>
+            <h3 className="font-display font-bold text-xl text-navy-dark dark:text-white mb-2">Formulir Pesan Cepat</h3>
             <p className="text-xs text-slate-400 block mb-6 font-light">
               Tulis keluhan atau kebutuhan Anda di bawah ini. Admin farmasi kami akan merespons dalam waktu ±10 menit.
             </p>
@@ -129,15 +136,15 @@ Pesan: ${data.message}`;
                 
                 {/* Name */}
                 <div className="space-y-1">
-                  <label htmlFor="form-input-name" className="text-xs font-semibold text-slate-600 block">
+                  <label htmlFor="form-input-name" className="text-xs font-semibold text-slate-600 dark:text-slate-300 block">
                     Nama Lengkap Anda *
                   </label>
                   <input
                     id="form-input-name"
                     type="text"
                     placeholder="Contoh: Budi Santoso"
-                    className={`w-full px-4 py-3 rounded-xl bg-slate-50 border text-slate-800 text-sm focus:outline-none focus:bg-white focus:ring-2 focus:ring-mint-green/20 transition-all ${
-                      errors.name ? 'border-red-400 focus:border-red-500' : 'border-slate-200 focus:border-mint-green'
+                    className={`w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-navy-dark border text-slate-800 dark:text-white text-sm focus:outline-none focus:bg-white dark:focus:bg-navy-elevated focus:ring-2 focus:ring-mint-green/20 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500 ${
+                      errors.name ? 'border-red-400 focus:border-red-500' : 'border-slate-200 dark:border-white/10 focus:border-mint-green'
                     }`}
                     {...register("name", { 
                       required: "Nama lengkap wajib diisi",
@@ -145,7 +152,7 @@ Pesan: ${data.message}`;
                     })}
                   />
                   {errors.name && (
-                    <span className="text-[10px] text-red-500 font-semibold flex items-center gap-1 mt-1">
+                    <span className="text-[10px] text-red-500 dark:text-red-400 font-semibold flex items-center gap-1 mt-1">
                       <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                       <span>{errors.name.message}</span>
                     </span>
@@ -154,15 +161,15 @@ Pesan: ${data.message}`;
 
                 {/* Phone number */}
                 <div className="space-y-1">
-                  <label htmlFor="form-input-phone" className="text-xs font-semibold text-slate-600 block">
+                  <label htmlFor="form-input-phone" className="text-xs font-semibold text-slate-600 dark:text-slate-300 block">
                     No. Handphone / WhatsApp *
                   </label>
                   <input
                     id="form-input-phone"
                     type="tel"
                     placeholder="Contoh: 081234567890"
-                    className={`w-full px-4 py-3 rounded-xl bg-slate-50 border text-slate-800 text-sm focus:outline-none focus:bg-white focus:ring-2 focus:ring-mint-green/20 transition-all ${
-                      errors.phone ? 'border-red-400 focus:border-red-500' : 'border-slate-200 focus:border-mint-green'
+                    className={`w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-navy-dark border text-slate-800 dark:text-white text-sm focus:outline-none focus:bg-white dark:focus:bg-navy-elevated focus:ring-2 focus:ring-mint-green/20 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500 ${
+                      errors.phone ? 'border-red-400 focus:border-red-500' : 'border-slate-200 dark:border-white/10 focus:border-mint-green'
                     }`}
                     {...register("phone", { 
                       required: "Nomor Handphone wajib diisi",
@@ -173,7 +180,7 @@ Pesan: ${data.message}`;
                     })}
                   />
                   {errors.phone && (
-                    <span className="text-[10px] text-red-500 font-semibold flex items-center gap-1 mt-1">
+                    <span className="text-[10px] text-red-500 dark:text-red-400 font-semibold flex items-center gap-1 mt-1">
                       <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                       <span>{errors.phone.message}</span>
                     </span>
@@ -184,33 +191,37 @@ Pesan: ${data.message}`;
 
               {/* Row 2: Service / Inquiry Type */}
               <div className="space-y-1">
-                <label htmlFor="form-input-service" className="text-xs font-semibold text-slate-600 block">
+                <label htmlFor="form-input-service" className="text-xs font-semibold text-slate-600 dark:text-slate-300 block">
                   Jenis Kepentingan *
                 </label>
-                <select
-                  id="form-input-service"
-                  className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 text-sm focus:outline-none focus:bg-white focus:ring-2 focus:ring-mint-green/20 transition-all cursor-pointer"
-                  {...register("serviceType")}
-                >
-                  <option value="Tanya Ketersediaan Obat">Tanya Ketersediaan Obat Khusus</option>
-                  <option value="Tebus Resep Dokter">Tebus Resep Dokter Baru</option>
-                  <option value="Konsultasi Dosis Medis">Konsultasi Dosis Bersama Apoteker</option>
-                  <option value="Kerja Sama / Pengadaan">Kerja Sama Instansi / Rumah Sakit</option>
-                  <option value="Lainnya">Lain-lain / Keluhan Umum</option>
-                </select>
+                {/* Custom select syncs its value back to react-hook-form */}
+                <CustomSelect
+                  options={[
+                    { value: "Tanya Ketersediaan Obat", label: "Tanya Ketersediaan Obat Khusus" },
+                    { value: "Tebus Resep Dokter", label: "Tebus Resep Dokter Baru" },
+                    { value: "Konsultasi Dosis Medis", label: "Konsultasi Dosis Bersama Apoteker" },
+                    { value: "Kerja Sama / Pengadaan", label: "Kerja Sama Instansi / Rumah Sakit" },
+                    { value: "Lainnya", label: "Lain-lain / Keluhan Umum" },
+                  ]}
+                  value={serviceTypeValue}
+                  onChange={(val) => setValue("serviceType", val)}
+                  className="z-30"
+                />
+                {/* Hidden input to ensure it registers correctly if needed, though setValue handles it */}
+                <input type="hidden" {...register("serviceType")} />
               </div>
 
               {/* Message */}
               <div className="space-y-1">
-                <label htmlFor="form-input-message" className="text-xs font-semibold text-slate-600 block">
+                <label htmlFor="form-input-message" className="text-xs font-semibold text-slate-600 dark:text-slate-300 block">
                   Isi Pesan Anda *
                 </label>
                 <textarea
                   id="form-input-message"
                   rows={4}
                   placeholder="Tuliskan daftar obat yang dicari, dosis resep dokter, atau konsultasi umum di sini..."
-                  className={`w-full px-4 py-3 rounded-xl bg-slate-50 border text-slate-800 text-sm focus:outline-none focus:bg-white focus:ring-2 focus:ring-mint-green/20 transition-all ${
-                    errors.message ? 'border-red-400 focus:border-red-500' : 'border-slate-200 focus:border-mint-green'
+                  className={`w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-navy-dark border text-slate-800 dark:text-white text-sm focus:outline-none focus:bg-white dark:focus:bg-navy-elevated focus:ring-2 focus:ring-mint-green/20 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500 ${
+                    errors.message ? 'border-red-400 focus:border-red-500' : 'border-slate-200 dark:border-white/10 focus:border-mint-green'
                   }`}
                   {...register("message", { 
                     required: "Isi pesan wajib diisi",
@@ -218,7 +229,7 @@ Pesan: ${data.message}`;
                   })}
                 />
                 {errors.message && (
-                  <span className="text-[10px] text-red-500 font-semibold flex items-center gap-1 mt-1">
+                  <span className="text-[10px] text-red-500 dark:text-red-400 font-semibold flex items-center gap-1 mt-1">
                     <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                     <span>{errors.message.message}</span>
                   </span>
@@ -232,13 +243,13 @@ Pesan: ${data.message}`;
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl flex items-start gap-2.5"
+                    className="p-4 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-emerald-800 dark:text-emerald-300 rounded-xl flex items-start gap-2.5"
                     id="submit-success-toast"
                   >
-                    <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                     <div>
                       <strong className="text-xs font-bold block">Menghubungkan ke WhatsApp...</strong>
-                      <p className="text-[11px] leading-relaxed mt-0.5 text-emerald-700">
+                      <p className="text-[11px] leading-relaxed mt-0.5 text-emerald-700 dark:text-emerald-400">
                         Anda sedang diarahkan ke WhatsApp kami. Silakan tekan kirim pada chat yang terbuka.
                       </p>
                     </div>
@@ -252,7 +263,7 @@ Pesan: ${data.message}`;
                   id="contact-form-submit-button"
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl font-bold bg-navy-dark hover:bg-slate-850 text-white disabled:bg-slate-300 disabled:cursor-not-allowed cursor-pointer shadow-md shadow-navy-dark/10 hover:shadow-lg transition-all active:scale-98"
+                  className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl font-bold bg-navy-dark dark:bg-mint-green/15 dark:border dark:border-mint-green/30 hover:bg-slate-850 dark:hover:bg-mint-green/25 text-white disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed cursor-pointer shadow-md shadow-navy-dark/10 hover:shadow-lg transition-all active:scale-98"
                 >
                   <Send className={`w-4 h-4 text-mint-green ${isSubmitting ? 'animate-bounce' : ''}`} />
                   <span>{isSubmitting ? 'Mengirim Data...' : 'Kirim Pesan Layanan'}</span>

@@ -28,11 +28,11 @@ export default function Hero() {
   return (
     <section 
       id="beranda" 
-      className="relative min-h-screen pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden flex items-center bg-gradient-to-b from-emerald-50/20 via-white to-transparent"
+      className="relative min-h-screen pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden flex items-center bg-gradient-to-b from-emerald-50/20 via-white to-transparent dark:from-navy-dark dark:via-navy-dark dark:to-navy-dark"
     >
       {/* Decorative blurry backgrounds */}
-      <div className="absolute top-20 right-[-10%] w-[500px] h-[500px] bg-mint-green/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 left-[-10%] w-[400px] h-[400px] bg-teal-glow/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-20 right-[-10%] w-[500px] h-[500px] bg-mint-green/10 dark:bg-mint-green/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 left-[-10%] w-[400px] h-[400px] bg-teal-glow/5 dark:bg-teal-glow/3 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
@@ -60,17 +60,17 @@ export default function Hero() {
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.1, duration: 0.7 }}
-                className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-navy-dark tracking-tight leading-[1.1]"
+                className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-navy-dark dark:text-white tracking-tight leading-[1.1]"
               >
                 Apotek Modern, <br className="hidden md:inline" />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-glow to-emerald-600 block sm:inline">Pelayanan Terpercaya</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-glow to-emerald-600 dark:from-mint-green dark:to-teal-glow block sm:inline">Pelayanan Terpercaya</span>
               </motion.h1>
 
               <motion.p
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.7 }}
-                className="text-base sm:text-lg text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed font-light"
+                className="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-xl mx-auto lg:mx-0 leading-relaxed font-light"
               >
                 Temukan kemudahan luar biasa dalam pengecekan persediaan obat secara real-time, tebus resep praktis, dan konsultasi kesehatan langsung bersama apoteker berlisensi kami.
               </motion.p>
@@ -98,7 +98,7 @@ export default function Hero() {
                 href={`https://wa.me/6282278954406?text=${preFilledWhatsAppMessage}`}
                 target="_blank"
                 rel="noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl bg-white border border-slate-200 text-slate-700 font-semibold hover:border-mint-green/50 hover:bg-slate-50 hover:scale-[1.01] active:scale-95 transition-all group"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl bg-white dark:bg-navy-charcoal border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-200 font-semibold hover:border-mint-green/50 hover:bg-slate-50 dark:hover:bg-navy-elevated hover:scale-[1.01] active:scale-95 transition-all group"
               >
                 <MessageSquare className="w-5 h-5 text-teal-glow group-hover:scale-110 transition-transform" />
                 <span>Konsultasi Apoteker</span>
@@ -110,28 +110,28 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.8 }}
-              className="pt-6 grid grid-cols-3 gap-4 border-t border-slate-100 max-w-lg mx-auto lg:mx-0"
+              className="pt-6 grid grid-cols-3 gap-4 border-t border-slate-100 dark:border-white/10 max-w-lg mx-auto lg:mx-0"
             >
               <div className="flex flex-col items-center lg:items-start gap-1">
                 <div className="flex items-center gap-1.5 text-teal-glow font-bold text-lg sm:text-2xl font-display">
                   <ShieldCheck className="w-5 h-5 text-mint-green hidden sm:inline" />
                   <span>100%</span>
                 </div>
-                <span className="text-xs text-slate-500 font-medium text-center lg:text-left">Obat Asli & Resmi</span>
+                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium text-center lg:text-left">Obat Asli & Resmi</span>
               </div>
               <div className="flex flex-col items-center lg:items-start gap-1">
                 <div className="flex items-center gap-1.5 text-teal-glow font-bold text-lg sm:text-2xl font-display">
                   <Calendar className="w-5 h-5 text-mint-green hidden sm:inline" />
                   <span>7 Hari</span>
                 </div>
-                <span className="text-xs text-slate-500 font-medium text-center lg:text-left">Operasional Aktif</span>
+                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium text-center lg:text-left">Operasional Aktif</span>
               </div>
               <div className="flex flex-col items-center lg:items-start gap-1">
                 <div className="flex items-center gap-1.5 text-teal-glow font-bold text-lg sm:text-2xl font-display">
                   <Activity className="w-5 h-5 text-mint-green hidden sm:inline" />
                   <span>Live</span>
                 </div>
-                <span className="text-xs text-slate-500 font-medium text-center lg:text-left">Sistem Cek Stok</span>
+                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium text-center lg:text-left">Sistem Cek Stok</span>
               </div>
             </motion.div>
           </div>
@@ -150,19 +150,19 @@ export default function Hero() {
                 initial={{ opacity: 0, rotate: -20, x: -60, y: -20 }}
                 animate={{ opacity: 1, rotate: -15, x: -75, y: -25 }}
                 transition={{ duration: 0.9, delay: 0.3 }}
-                className="absolute w-52 p-5 rounded-3xl bg-white border border-slate-100 shadow-xl opacity-90"
+                className="absolute w-52 p-5 rounded-3xl bg-white dark:bg-navy-charcoal border border-slate-100 dark:border-white/10 shadow-xl opacity-90"
               >
                 <div className="flex justify-between items-start mb-3">
-                  <div className="w-8 h-8 rounded-lg bg-pink-50 flex items-center justify-center text-pink-500">
+                  <div className="w-8 h-8 rounded-lg bg-pink-50 dark:bg-pink-500/10 flex items-center justify-center text-pink-500">
                     <Heart className="w-4 h-4 fill-pink-500" />
                   </div>
-                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-500 font-bold">Kategori: Alergi</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400 font-bold">Kategori: Alergi</span>
                 </div>
-                <h4 className="font-display font-bold text-sm text-slate-800">Decolgen Kaplet</h4>
+                <h4 className="font-display font-bold text-sm text-slate-800 dark:text-slate-100">Decolgen Kaplet</h4>
                 <p className="text-[11px] text-slate-400 mt-0.5 font-mono">Phenylpropanolamine</p>
-                <div className="mt-4 flex items-center justify-between border-t border-slate-50 pt-2.5">
-                  <span className="text-[11px] text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-md">Stok Aman</span>
-                  <span className="font-display text-xs font-bold text-slate-700">Rp 6.400 / strip</span>
+                <div className="mt-4 flex items-center justify-between border-t border-slate-50 dark:border-white/5 pt-2.5">
+                  <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-50 dark:bg-emerald-500/10 px-2 py-0.5 rounded-md">Stok Aman</span>
+                  <span className="font-display text-xs font-bold text-slate-700 dark:text-slate-300">Rp 6.400 / strip</span>
                 </div>
               </motion.div>
 
@@ -195,19 +195,19 @@ export default function Hero() {
                 initial={{ opacity: 0, rotate: 18, x: 60, y: 30 }}
                 animate={{ opacity: 1, rotate: 12, x: 75, y: 25 }}
                 transition={{ duration: 0.9, delay: 0.4 }}
-                className="absolute w-52 p-5 rounded-3xl bg-white border border-slate-100 shadow-xl z-10"
+                className="absolute w-52 p-5 rounded-3xl bg-white dark:bg-navy-charcoal border border-slate-100 dark:border-white/10 shadow-xl z-10"
               >
                 <div className="flex justify-between items-start mb-3">
-                  <div className="w-8 h-8 rounded-lg bg-orange-50 flex items-center justify-center text-orange-500">
+                  <div className="w-8 h-8 rounded-lg bg-orange-50 dark:bg-orange-500/10 flex items-center justify-center text-orange-500">
                     <Activity className="w-4 h-4" />
                   </div>
-                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-red-50 text-red-500 font-bold">Wajib Resep</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-red-50 dark:bg-red-500/10 text-red-500 font-bold">Wajib Resep</span>
                 </div>
-                <h4 className="font-display font-semibold text-sm text-slate-800 leading-none">Amoxicillin</h4>
+                <h4 className="font-display font-semibold text-sm text-slate-800 dark:text-slate-100 leading-none">Amoxicillin</h4>
                 <p className="text-[10px] text-slate-400 mt-1 font-mono">Kategori: Antibiotik</p>
-                <div className="mt-4 pt-3 border-t border-slate-50 flex flex-col gap-1.5">
-                  <span className="text-[11px] text-slate-500 block">Status stok:</span>
-                  <span className="inline-block text-center text-[10px] font-bold text-amber-600 bg-amber-50 px-2 py-1 rounded-lg">Stok Terbatas</span>
+                <div className="mt-4 pt-3 border-t border-slate-50 dark:border-white/5 flex flex-col gap-1.5">
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 block">Status stok:</span>
+                  <span className="inline-block text-center text-[10px] font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-500/10 px-2 py-1 rounded-lg">Stok Terbatas</span>
                 </div>
               </motion.div>
 
@@ -236,7 +236,7 @@ export default function Hero() {
           <a
             href="#tentang"
             onClick={(e) => handleScrollToSection(e, '#tentang')}
-            className="p-3 rounded-full bg-white border border-slate-100 text-slate-400 hover:text-teal-glow hover:border-mint-green/50 active:scale-95 transition-all shadow-md flex items-center justify-center animate-bounce-subtle"
+            className="p-3 rounded-full bg-white dark:bg-navy-charcoal border border-slate-100 dark:border-white/10 text-slate-400 hover:text-teal-glow hover:border-mint-green/50 active:scale-95 transition-all shadow-md flex items-center justify-center animate-bounce-subtle"
             aria-label="Scroll ke Bawah"
           >
             <ArrowDown className="w-5 h-5 text-teal-glow" />

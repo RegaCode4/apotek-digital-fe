@@ -138,7 +138,7 @@ export default function Footer() {
 
           {/* Column 4: Operational & Social Deck */}
           <div className="lg:col-span-3 space-y-4">
-            <h4 className="font-display font-semibold text-xs text-white uppercase tracking-wider font-semibold">
+            <h4 className="font-display font-semibold text-xs text-white uppercase tracking-wider">
               Jam operasional
             </h4>
             <div className="text-xs text-slate-400 space-y-1.5 font-light">

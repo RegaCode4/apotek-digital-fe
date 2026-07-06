@@ -9,7 +9,7 @@ import SectionReveal from "./ui/SectionReveal";
 
 export default function LocationSection() {
   return (
-    <section id="lokasi" className="py-20 md:py-28 bg-white relative">
+    <section id="lokasi" className="py-20 md:py-28 bg-white dark:bg-navy-dark relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
@@ -17,10 +17,10 @@ export default function LocationSection() {
             <span className="text-xs font-bold text-teal-glow tracking-widest uppercase bg-mint-green/10 px-3 py-1.5 rounded-full">
               Peta Lokasi Fisik
             </span>
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-navy-dark tracking-tight mt-3">
+            <h2 className="text-3xl sm:text-4xl font-display font-bold text-navy-dark dark:text-white tracking-tight mt-3">
               Kunjungi Apotek Kami Secara Fisik
             </h2>
-            <p className="text-slate-500 mt-3 font-light leading-relaxed">
+            <p className="text-slate-500 dark:text-slate-400 mt-3 font-light leading-relaxed">
               Kami berlokasi strategis di pusat kota dengan akses mudah, tempat
               parkir aman, dan ruang konsultasi privat apoteker yang sejuk untuk
               menunjang kenyamanan maksimal Anda.
@@ -105,10 +105,10 @@ export default function LocationSection() {
           </div>
 
           {/* Right Column: Google Maps IFrame wrapper (Sleek minimalist panel styling) */}
-          <div className="lg:col-span-7 h-[380px] lg:h-auto min-h-[400px] rounded-[32px] border border-slate-100 shadow-sm overflow-hidden relative bg-slate-50 group">
+          <div className="lg:col-span-7 h-[380px] lg:h-auto min-h-[400px] rounded-[32px] border border-slate-100 dark:border-white/10 shadow-sm overflow-hidden relative bg-slate-50 dark:bg-navy-charcoal group">
             {/* Custom overlay message that user is viewing Google Maps */}
-            <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-xl text-[11px] font-medium text-slate-700 shadow-md border border-slate-100 z-10 flex items-center gap-2 pointer-events-none transition-opacity duration-300 group-hover:opacity-100">
-              <MapPin className="w-4 h-4 text-emerald-600 animate-bounce" />
+            <div className="absolute top-4 right-4 bg-white/95 dark:bg-navy-charcoal/95 backdrop-blur-md px-4 py-2.5 rounded-xl text-[11px] font-medium text-slate-700 dark:text-slate-300 shadow-md border border-slate-100 dark:border-white/10 z-10 flex items-center gap-2 pointer-events-none transition-opacity duration-300 group-hover:opacity-100">
+              <MapPin className="w-4 h-4 text-emerald-600 dark:text-emerald-400 animate-bounce" />
               <span>Kec. Pauh, Kota Padang</span>
             </div>
 

@@ -4,9 +4,14 @@
  */
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Pill, Menu, X, Search, ChevronRight } from "lucide-react";
+import { Pill, Menu, X, Search, ChevronRight, Sun, Moon } from "lucide-react";
 
-export default function Navbar() {
+interface NavbarProps {
+  isDark: boolean;
+  toggleDark: () => void;
+}
+
+export default function Navbar({ isDark, toggleDark }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -59,7 +64,7 @@ export default function Navbar() {
           <div
             className={`flex items-center justify-between rounded-full pl-4 pr-3 transition-all duration-300 ${
               isScrolled
-                ? "bg-white/70 backdrop-blur-lg shadow-lg border border-gray-100 py-2"
+                ? "bg-white/70 dark:bg-navy-charcoal/80 backdrop-blur-lg shadow-lg border border-gray-100 dark:border-white/10 py-2"
                 : "bg-navy-dark/95 backdrop-blur-md shadow-xl py-2.5"
             }`}
           >
@@ -76,14 +81,14 @@ export default function Navbar() {
               <div>
                 <span
                   className={`font-display font-bold text-lg md:text-xl tracking-tight leading-none block transition-colors ${
-                    isScrolled ? "text-navy-dark" : "text-white"
+                    isScrolled ? "text-navy-dark dark:text-white" : "text-white"
                   }`}
                 >
                   Apotek<span className="text-teal-glow">Digital</span>
                 </span>
                 <span
                   className={`text-[10px] font-medium tracking-wider uppercase block transition-colors ${
-                    isScrolled ? "text-gray-400" : "text-gray-300"
+                    isScrolled ? "text-gray-400 dark:text-slate-500" : "text-gray-300"
                   }`}
                 >
                   Sistem Farmasi Modern
@@ -101,7 +106,7 @@ export default function Navbar() {
                   onClick={(e) => handleScrollToSegment(e, link.href)}
                   className={`text-sm font-medium transition-colors duration-200 relative py-1 group ${
                     isScrolled
-                      ? "text-slate-600 hover:text-teal-glow"
+                      ? "text-slate-600 dark:text-slate-300 hover:text-teal-glow"
                       : "text-slate-200 hover:text-white"
                   }`}
                 >
@@ -111,13 +116,41 @@ export default function Navbar() {
               ))}
             </nav>
 
-            {/* Desktop Main CTA */}
-            <div className="hidden lg:flex items-center gap-4">
+            {/* Desktop Main CTA + Dark Mode Toggle */}
+            <div className="hidden lg:flex items-center gap-3">
+              {/* Dark Mode Toggle */}
+              <button
+                id="dark-mode-toggle-desktop"
+                onClick={toggleDark}
+                className={`relative w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer focus:outline-none overflow-hidden ${
+                  isScrolled
+                    ? "bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/15"
+                    : "bg-white/10 text-white hover:bg-white/20"
+                }`}
+                aria-label={isDark ? "Beralih ke mode terang" : "Beralih ke mode gelap"}
+                title={isDark ? "Mode Terang" : "Mode Gelap"}
+              >
+                <motion.div
+                  key={isDark ? "sun" : "moon"}
+                  initial={{ rotate: -90, scale: 0, opacity: 0 }}
+                  animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                  exit={{ rotate: 90, scale: 0, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                >
+                  {isDark ? (
+                    <Sun className="w-4 h-4" />
+                  ) : (
+                    <Moon className="w-4 h-4" />
+                  )}
+                </motion.div>
+              </button>
+
+              {/* CTA Button */}
               <a
                 id="cta-cek-ketersediaan-desktop"
                 href="#cek-ketersediaan"
                 onClick={(e) => handleScrollToSegment(e, '#cek-ketersediaan')}
-                className={`inline-flex items-center justify-center rounded-full font-semibold bg-navy-dark text-white hover:bg-slate-800 active:scale-95 transition-all duration-300 shadow-md shadow-navy-dark/10 group cursor-pointer overflow-hidden ${
+                className={`inline-flex items-center justify-center rounded-full font-semibold bg-navy-dark dark:bg-mint-green/15 dark:border dark:border-mint-green/30 text-white hover:bg-slate-800 dark:hover:bg-mint-green/25 active:scale-95 transition-all duration-300 shadow-md shadow-navy-dark/10 group cursor-pointer overflow-hidden ${
                   isScrolled ? "w-9 h-9" : "px-5 py-2.5 text-sm gap-2"
                 }`}
                 title="Cek Ketersediaan Obat"
@@ -132,12 +165,30 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="flex lg:hidden items-center gap-3">
+            <div className="flex lg:hidden items-center gap-2">
+              {/* Dark Mode Toggle Mobile */}
+              <button
+                id="dark-mode-toggle-mobile"
+                onClick={toggleDark}
+                className={`p-2 rounded-full transition-all cursor-pointer focus:outline-none ${
+                  isScrolled
+                    ? "bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300"
+                    : "bg-white/10 text-white"
+                }`}
+                aria-label={isDark ? "Beralih ke mode terang" : "Beralih ke mode gelap"}
+              >
+                {isDark ? (
+                  <Sun className="w-4 h-4" />
+                ) : (
+                  <Moon className="w-4 h-4" />
+                )}
+              </button>
+
               <a
                 id="cta-cek-ketersediaan-mobile-short"
                 href="#cek-ketersediaan"
                 onClick={(e) => handleScrollToSegment(e, '#cek-ketersediaan')}
-                className="p-2 rounded-full bg-navy-dark text-white cursor-pointer"
+                className="p-2 rounded-full bg-navy-dark dark:bg-white/10 text-white cursor-pointer"
                 aria-label="Cek Ketersediaan Obat"
               >
                 <Search className="w-4 h-4 text-mint-green" />
@@ -147,7 +198,7 @@ export default function Navbar() {
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className={`p-2 rounded-full border focus:outline-none transition-colors ${
                   isScrolled
-                    ? "border-gray-200 hover:bg-gray-50 text-navy-dark"
+                    ? "border-gray-200 dark:border-white/15 hover:bg-gray-50 dark:hover:bg-white/10 text-navy-dark dark:text-white"
                     : "border-white/20 hover:bg-white/10 text-white"
                 }`}
                 aria-label="Toggle Menu"
@@ -172,7 +223,7 @@ export default function Navbar() {
             animate={panelAnimate}
             exit={panelExit}
             transition={panelTransition}
-            className="fixed top-[80px] left-4 right-4 z-40 bg-white rounded-2xl border border-gray-100 shadow-xl overflow-hidden lg:hidden"
+            className="fixed top-[80px] left-4 right-4 z-40 bg-white dark:bg-navy-charcoal rounded-2xl border border-gray-100 dark:border-white/10 shadow-xl overflow-hidden lg:hidden"
           >
             <div className="px-4 pt-4 pb-6 space-y-2">
               {navLinks.map((link) => (
@@ -181,18 +232,18 @@ export default function Navbar() {
                   id={`mobile-nav-link-${link.href.replace("#", "")}`}
                   href={link.href}
                   onClick={(e) => handleScrollToSegment(e, link.href)}
-                  className="flex items-center justify-between p-3 rounded-xl text-base font-medium text-slate-700 hover:text-teal-glow hover:bg-slate-50 transition-all"
+                  className="flex items-center justify-between p-3 rounded-xl text-base font-medium text-slate-700 dark:text-slate-200 hover:text-teal-glow hover:bg-slate-50 dark:hover:bg-white/5 transition-all"
                 >
                   <span>{link.name}</span>
-                  <ChevronRight className="w-4 h-4 opacity-50 text-slate-400" />
+                  <ChevronRight className="w-4 h-4 opacity-50 text-slate-400 dark:text-slate-500" />
                 </a>
               ))}
-              <div className="pt-4 border-t border-gray-100 mt-2">
+              <div className="pt-4 border-t border-gray-100 dark:border-white/10 mt-2">
                 <a
                   id="cta-cek-ketersediaan-mobile-panel"
                   href="#cek-ketersediaan"
                   onClick={(e) => handleScrollToSegment(e, '#cek-ketersediaan')}
-                  className="flex items-center justify-center gap-2 w-full p-3.5 rounded-xl text-base font-semibold bg-navy-dark text-white hover:bg-slate-800 transition-colors cursor-pointer"
+                  className="flex items-center justify-center gap-2 w-full p-3.5 rounded-xl text-base font-semibold bg-navy-dark dark:bg-mint-green/15 dark:border dark:border-mint-green/30 text-white hover:bg-slate-800 dark:hover:bg-mint-green/25 transition-colors cursor-pointer"
                 >
                   <Search className="w-5 h-5 text-mint-green" />
                   <span>Cek Ketersediaan Obat</span>
