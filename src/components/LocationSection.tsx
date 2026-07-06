@@ -7,6 +7,10 @@ import { MapPin, Navigation, Map, Compass, ExternalLink } from "lucide-react";
 import { pharmacyProfile } from "../data/mockData";
 import SectionReveal from "./ui/SectionReveal";
 
+/**
+ * Location Section Component
+ * Displays the physical pharmacy address, transit information, and an embedded Google Maps view.
+ */
 export default function LocationSection() {
   return (
     <section id="lokasi" className="py-20 md:py-28 bg-white dark:bg-navy-dark relative">

@@ -7,6 +7,9 @@ import { Medicine } from "../data/mockData";
 const API_BASE =
   (import.meta as any).env?.VITE_API_BASE_URL || "http://localhost:8000";
 
+/**
+ * Custom Error class for handling API-specific errors with HTTP status codes.
+ */
 export class ApiError extends Error {
   status?: number;
   constructor(message: string, status?: number) {
@@ -16,6 +19,11 @@ export class ApiError extends Error {
   }
 }
 
+/**
+ * Fetches the latest medicine inventory data from the backend API.
+ * Maps the raw database response into standard `Medicine` objects.
+ * Throws an `ApiError` if the request fails or format is invalid.
+ */
 export async function fetchMedicines(): Promise<Medicine[]> {
   try {
     const url = `${API_BASE}/api/medicines`;

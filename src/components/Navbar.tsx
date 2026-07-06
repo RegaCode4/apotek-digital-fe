@@ -11,8 +11,14 @@ interface NavbarProps {
   toggleDark: () => void;
 }
 
+/**
+ * Main Navigation Bar Component
+ * Features a dynamic scrolling effect, mobile menu toggle, and dark mode switch.
+ */
 export default function Navbar({ isDark, toggleDark }: NavbarProps) {
+  // State to track if user has scrolled down (for navbar visual transition)
   const [isScrolled, setIsScrolled] = useState(false);
+  // State to manage mobile menu visibility
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const panelInitial = { opacity: 0, height: 0 };
@@ -28,6 +34,7 @@ export default function Navbar({ isDark, toggleDark }: NavbarProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Array of navigation links for both desktop and mobile menus
   const navLinks = [
     { name: "Beranda", href: "#beranda" },
     { name: "Tentang", href: "#tentang" },
@@ -36,6 +43,7 @@ export default function Navbar({ isDark, toggleDark }: NavbarProps) {
     { name: "Hubungi Kontak", href: "#kontak" },
   ];
 
+  // Helper to smoothly scroll to a section on the page based on its ID
   const handleScrollToSegment = (
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string,

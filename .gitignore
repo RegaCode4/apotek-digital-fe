@@ -135,3 +135,7 @@ dist/
 
 # Assets
 assets/
+
+# Context & Documentation
+context.md
+workflow.md

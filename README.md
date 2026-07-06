@@ -18,6 +18,8 @@
 ## Features
 
 - **Modern UI/UX**: Built with premium design aesthetics, carefully curated color palettes, and a highly interactive interface.
+- **Dark Mode Support**: System-aware and user-toggleable dark mode tailored with custom styling.
+- **Real-Time Stock Checker**: Live integration with backend API to display available, low, and out-of-stock medicines.
 - **Micro-Animations**: Smooth interactions and transitions using GSAP and Motion for an engaging user experience.
 - **Fast & Responsive**: Fully responsive layout ensuring a great experience across desktop, tablet, and mobile devices.
 - **Robust Form Handling**: Efficient and type-safe form validation using React Hook Form.
@@ -40,6 +42,7 @@ Follow these instructions to set up and run the project locally.
 
 - Node.js (v18 or higher recommended)
 - npm, yarn, pnpm, atau bun
+- Laravel Backend API (running on `http://localhost:8000` by default)
 
 ### Installation
 
@@ -58,7 +61,13 @@ Follow these instructions to set up and run the project locally.
    npm install
    ```
 
-4. **Start the development server:**
+4. **Environment Setup:**
+   Create a `.env` file in the root directory (if not exists) and configure your API URL:
+   ```bash
+   VITE_API_BASE_URL=http://localhost:8000
+   ```
+
+5. **Start the development server:**
    ```bash
    npm run dev
    ```

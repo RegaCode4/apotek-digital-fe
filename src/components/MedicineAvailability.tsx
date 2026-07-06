@@ -30,13 +30,20 @@ interface MedicineAvailabilityProps {
   refetch: () => Promise<void>;
 }
 
-// Helper to compute stock status based on real DB properties (stock and min_stock)
+/**
+ * Helper to compute stock status based on real DB properties (stock and min_stock)
+ * Calculates status by comparing current stock against minimum stock threshold.
+ */
 const getStockStatus = (med: Medicine): "tersedia" | "menipis" | "habis" => {
   if (med.stock === 0) return "habis";
   if (med.stock <= med.min_stock) return "menipis";
   return "tersedia";
 };
 
+/**
+ * Medicine Availability Section Component
+ * Displays a searchable, filterable grid of medicine inventory with pagination.
+ */
 export default function MedicineAvailability({
   selectedCategory,
   setSelectedCategory,
@@ -88,6 +95,7 @@ export default function MedicineAvailability({
     });
   }, [medicines, searchQuery, selectedCategory, prescriptionFilter]);
 
+  // Resets all search and filter states back to default values
   const handleResetFilters = () => {
     setSearchQuery("");
     setSelectedCategory("semua");

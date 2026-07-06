@@ -15,14 +15,22 @@ interface CategoriesProps {
   medicines?: Medicine[];
 }
 
+// Map of icon names to actual Lucide component for dynamic rendering
 const iconMap: Record<string, LucideIcon> = {
   Pill, HeartPulse, Brain, ShieldAlert, Wind, FlaskConical, Ribbon, Hand,
   Bone, Eye, Stethoscope, Droplet, Bug, Package, Sparkles, LayoutGrid,
 };
 
+/**
+ * Categories Section Component
+ * Displays medicine categories in a bento grid format.
+ * Allows users to select a category which will smoothly scroll to the availability section.
+ */
 export default function Categories({ selectedCategory, setSelectedCategory, medicines = [] }: CategoriesProps) {
+  // Build category statistics based on current medicines data
   const categories = buildCategories(medicines);
 
+  // Handles clicking a category card: updates selected category and scrolls to search section
   const handleCategoryClick = (categoryId: string) => {
     setSelectedCategory(categoryId);
     const element = document.querySelector('#cek-ketersediaan');
