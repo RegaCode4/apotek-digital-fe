@@ -5,6 +5,7 @@
 
 import React, { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import AnimatedHeading from "./ui/AnimatedHeading";
 import {
   Search,
   AlertTriangle,
@@ -31,8 +32,8 @@ interface MedicineAvailabilityProps {
 }
 
 /**
- * Helper to compute stock status based on real DB properties (stock and min_stock)
- * Calculates status by comparing current stock against minimum stock threshold.
+ * Helper untuk menghitung status stok berdasarkan properti DB yang sebenarnya (stock dan min_stock)
+ * Menghitung status dengan membandingkan stok saat ini terhadap ambang batas minimum stok.
  */
 const getStockStatus = (med: Medicine): "tersedia" | "menipis" | "habis" => {
   if (med.stock === 0) return "habis";
@@ -41,8 +42,8 @@ const getStockStatus = (med: Medicine): "tersedia" | "menipis" | "habis" => {
 };
 
 /**
- * Medicine Availability Section Component
- * Displays a searchable, filterable grid of medicine inventory with pagination.
+ * Komponen Bagian Ketersediaan Obat
+ * Menampilkan grid inventaris obat yang dapat dicari, disaring (filter), dan memiliki fitur pagination.
  */
 export default function MedicineAvailability({
   selectedCategory,
@@ -60,7 +61,7 @@ export default function MedicineAvailability({
   const ITEMS_PER_PAGE = 9;
   const categories = buildCategories(medicines);
 
-  // Rupiah currency formatter helper
+  // Helper pemformatan mata uang Rupiah
   const formatRupiah = (value?: number) => {
     if (value === undefined || value === null) return "";
     return new Intl.NumberFormat("id-ID", {
@@ -71,21 +72,21 @@ export default function MedicineAvailability({
     }).format(value);
   };
 
-  // Real-time filtering logic
+  // Logika filter waktu-nyata (real-time)
   const filteredMedicines = useMemo(() => {
     return medicines.filter((med) => {
-      // 1. Search Query Match (Name / Generic Name)
+      // 1. Pencocokan Kata Pencarian (Nama / Nama Generik)
       const matchesSearch =
         med.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         (med.generic_name &&
           med.generic_name.toLowerCase().includes(searchQuery.toLowerCase()));
 
-      // 2. Category Match
+      // 2. Pencocokan Kategori
       const matchesCategory =
         selectedCategory === "semua" ||
         String(med.category_id) === selectedCategory;
 
-      // 3. Prescription Status Filter
+      // 3. Pencocokan Status Resep
       const matchesPrescription =
         prescriptionFilter === "semua" ||
         (prescriptionFilter === "resep" && med.requires_prescription) ||
@@ -95,7 +96,7 @@ export default function MedicineAvailability({
     });
   }, [medicines, searchQuery, selectedCategory, prescriptionFilter]);
 
-  // Resets all search and filter states back to default values
+  // Mereset semua status pencarian dan filter ke nilai default
   const handleResetFilters = () => {
     setSearchQuery("");
     setSelectedCategory("semua");
@@ -103,7 +104,7 @@ export default function MedicineAvailability({
     setCurrentPage(1);
   };
 
-  // Reset to page 1 whenever filters change
+  // Reset ke halaman 1 setiap kali filter berubah
   const totalPages = Math.ceil(filteredMedicines.length / ITEMS_PER_PAGE);
   const paginatedMedicines = useMemo(() => {
     const start = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -114,7 +115,7 @@ export default function MedicineAvailability({
     setCurrentPage(1);
   }, [searchQuery, selectedCategory, prescriptionFilter]);
 
-  // Pre-calculate statistics
+  // Hitung statistik di awal (pre-calculate)
   const countTersedia = useMemo(
     () => medicines.filter((m) => getStockStatus(m) === "tersedia").length,
     [medicines],
@@ -128,7 +129,7 @@ export default function MedicineAvailability({
     [medicines],
   );
 
-  // Loading skeleton state
+  // Status memuat (loading skeleton)
   if (isLoading) {
     return (
       <section
@@ -175,7 +176,7 @@ export default function MedicineAvailability({
     );
   }
 
-  // Error boundary fallback with Retry support
+  // Fallback batasan error dengan fitur Coba Lagi (Retry)
   if (error) {
     return (
       <section
@@ -220,15 +221,15 @@ export default function MedicineAvailability({
       <div className="absolute top-1/2 left-0 w-72 h-72 bg-emerald-50/20 dark:bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {/* Title Segment */}
+        {/* Segmen Judul */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-6">
           <div className="max-w-2xl">
             <span className="text-xs font-bold text-teal-glow tracking-widest uppercase bg-mint-green/10 px-3 py-1.5 rounded-full inline-block">
               Sistem Cek Stok Live
             </span>
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-navy-dark dark:text-white tracking-tight mt-3">
+            <AnimatedHeading className="text-3xl sm:text-4xl font-display font-bold text-navy-dark dark:text-white tracking-tight mt-3">
               Cek Ketersediaan Obat Real-Time
-            </h2>
+            </AnimatedHeading>
             <p className="text-slate-500 dark:text-slate-400 mt-2 font-light">
               Masukkan nama obat atau bahan aktif penunjang medis di bawah ini.
               Status persediaan terhubung langsung dengan sistem inventaris
@@ -236,7 +237,7 @@ export default function MedicineAvailability({
             </p>
           </div>
 
-          {/* Quick Stats Banner inside search section */}
+          {/* Banner Statistik Cepat di dalam bagian pencarian */}
           <div className="flex items-center gap-4 bg-slate-50 dark:bg-navy-charcoal p-4 rounded-2xl border border-slate-100 dark:border-white/10 self-start lg:self-auto">
             <div className="text-center px-4 border-r border-slate-200 dark:border-white/10">
               <span className="text-2xl font-display font-bold text-emerald-600 dark:text-emerald-400 block leading-none">
@@ -265,10 +266,10 @@ export default function MedicineAvailability({
           </div>
         </div>
 
-        {/* Multi-Filter Search Bar */}
+        {/* Kolom Pencarian Multi-Filter */}
         <div className="bg-slate-50 dark:bg-navy-charcoal p-6 rounded-[24px] border border-slate-100 dark:border-white/10 shadow-xs mb-10 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-            {/* Search Input Bar */}
+            {/* Input Pencarian */}
             <div className="md:col-span-6 relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 pointer-events-none" />
               <input
@@ -281,7 +282,7 @@ export default function MedicineAvailability({
               />
             </div>
 
-            {/* Category Select Dropdown */}
+            {/* Dropdown Pilih Kategori */}
             <div className="md:col-span-3">
               <CustomSelect
                 options={categories.map((cat) => ({ value: cat.id, label: cat.name }))}
@@ -290,7 +291,7 @@ export default function MedicineAvailability({
               />
             </div>
 
-            {/* Prescription Filter Drops */}
+            {/* Dropdown Filter Resep */}
             <div className="md:col-span-3">
               <CustomSelect
                 options={[
@@ -304,7 +305,7 @@ export default function MedicineAvailability({
             </div>
           </div>
 
-          {/* Filters Footer Summary */}
+          {/* Ringkasan Footer Filter */}
           <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
             <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 font-medium">
               <span>Menampilkan: </span>
@@ -334,7 +335,7 @@ export default function MedicineAvailability({
           </div>
         </div>
 
-        {/* Medicines Result Grid */}
+        {/* Grid Hasil Obat */}
         {filteredMedicines.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <AnimatePresence mode="popLayout">
@@ -351,17 +352,17 @@ export default function MedicineAvailability({
                     id={`medicine-card-${med.id}`}
                     className="bg-white dark:bg-navy-charcoal rounded-2xl border border-slate-100 dark:border-white/10 hover:border-mint-green/45 p-6 hover:shadow-lg transition-all flex flex-col justify-between group relative overflow-hidden"
                   >
-                    {/* Inner top decorations for branding */}
+                    {/* Dekorasi bagian atas dalam untuk branding */}
                     <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-mint-green/5 to-transparent" />
 
                     <div>
-                      {/* Badge & Stock Row */}
+                      {/* Baris Badge & Stok */}
                       <div className="flex items-center justify-between mb-4 gap-2">
                         <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-100 dark:border-indigo-500/20 px-2 py-0.5 rounded-md uppercase text-ellipsis overflow-hidden whitespace-nowrap max-w-[150px]">
                           {med.category?.name ?? "Lainnya"}
                         </span>
 
-                        {/* Stock Badges mapping */}
+                        {/* Mapping Badge Stok */}
                         {status === "tersedia" && (
                           <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 px-2.5 py-0.5 rounded-full shrink-0">
                             <CheckCircle2 className="w-3.5 h-3.5" />
@@ -382,7 +383,7 @@ export default function MedicineAvailability({
                         )}
                       </div>
 
-                      {/* Name block */}
+                      {/* Blok Nama */}
                       <div className="space-y-1">
                         <h3 className="font-display font-bold text-lg text-navy-dark dark:text-white leading-tight group-hover:text-teal-glow transition-colors">
                           {med.name}
@@ -394,7 +395,7 @@ export default function MedicineAvailability({
                         )}
                       </div>
 
-                      {/* General Specs Grid */}
+                      {/* Grid Spesifikasi Umum */}
                       <div className="my-4 grid grid-cols-2 gap-3 p-3 bg-slate-50/70 dark:bg-navy-dark/50 rounded-xl text-xs text-slate-500 dark:text-slate-400 font-medium">
                         <div className="space-y-0.5">
                           <span className="text-[9px] text-slate-400 flex items-center gap-1 uppercase font-semibold tracking-wider">
@@ -440,7 +441,7 @@ export default function MedicineAvailability({
                         </div>
                       </div>
 
-                      {/* Description / Aturan pakai */}
+                      {/* Deskripsi / Aturan Pakai */}
                       {med.description && (
                         <p
                           className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed font-light mt-2 line-clamp-2"
@@ -451,8 +452,8 @@ export default function MedicineAvailability({
                       )}
                     </div>
 
-                    {/* Pricing / Call to Action Row */}
-                    {/* Pricing Row (tanpa tombol) */}
+                    {/* Baris Harga / Call to Action */}
+                    {/* Baris Harga (tanpa tombol) */}
                     <div className="mt-4 pt-4 border-t border-slate-100 dark:border-white/10">
                       {med.requires_prescription ? (
                         <span className="text-[11px] text-red-500 dark:text-red-400 font-bold uppercase tracking-wide flex items-center gap-1">
@@ -481,7 +482,7 @@ export default function MedicineAvailability({
           </div>
         ) : null}
 
-        {/* Pagination Controls */}
+        {/* Kontrol Penomoran Halaman (Pagination) */}
         {totalPages > 1 && (
           <div className="flex items-center justify-center gap-2 mt-10">
             <button
@@ -539,7 +540,7 @@ export default function MedicineAvailability({
           </div>
         )}
 
-        {/* Pagination Info */}
+        {/* Info Penomoran Halaman */}
         {filteredMedicines.length > 0 && totalPages > 1 && (
           <p className="text-center text-xs text-slate-400 mt-3">
             Halaman {currentPage} dari {totalPages} &mdash;{" "}
@@ -547,7 +548,7 @@ export default function MedicineAvailability({
           </p>
         )}
 
-        {/* Empty Search Fallback State */}
+        {/* Tampilan Saat Pencarian Kosong (Fallback) */}
         {filteredMedicines.length === 0 && (
           <div className="text-center py-16 px-4 rounded-3xl bg-slate-50 dark:bg-navy-charcoal border border-slate-100 dark:border-white/10 max-w-lg mx-auto">
             <div className="w-16 h-16 rounded-full bg-slate-100 dark:bg-white/10 flex items-center justify-center text-slate-400 mx-auto mb-4">
@@ -581,7 +582,7 @@ export default function MedicineAvailability({
           </div>
         )}
 
-        {/* Informational Guidance bar */}
+        {/* Bar Panduan Informasi */}
         <div className="mt-12 p-4 rounded-2xl bg-teal-50/45 dark:bg-teal-900/15 border border-teal-100 dark:border-teal-800/30 flex items-start gap-3 max-w-4xl mx-auto">
           <Info className="w-5 h-5 text-teal-glow shrink-0 mt-0.5" />
           <div className="space-y-1 text-xs text-slate-600 dark:text-slate-400 font-light">

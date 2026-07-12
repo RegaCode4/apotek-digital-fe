@@ -10,6 +10,7 @@ import { Send, Mail, Clock, CheckCircle2, AlertCircle, MessageSquare } from 'luc
 import { pharmacyProfile } from '../data/mockData';
 import SectionReveal from './ui/SectionReveal';
 import CustomSelect from './ui/CustomSelect';
+import AnimatedHeading from './ui/AnimatedHeading';
 
 interface ContactFormInputs {
   name: string;
@@ -18,6 +19,10 @@ interface ContactFormInputs {
   message: string;
 }
 
+/**
+ * Komponen Bagian Kontak (Contact Section)
+ * Formulir kontak interaktif yang terhubung langsung dengan WhatsApp untuk konsultasi atau pertanyaan.
+ */
 export default function ContactSection() {
   const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
   const { register, handleSubmit, reset, setValue, watch, formState: { errors, isSubmitting } } = useForm<ContactFormInputs>({
@@ -44,7 +49,7 @@ Pesan: ${data.message}`;
     setIsSubmitSuccess(true);
     reset();
     
-    // Clear toast alert after 6 seconds
+    // Bersihkan notifikasi (toast) setelah 6 detik
     setTimeout(() => {
       setIsSubmitSuccess(false);
     }, 6000);
@@ -58,21 +63,21 @@ Pesan: ${data.message}`;
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
-          {/* Left Column: Direct operating hours and contact cards */}
+          {/* Kolom Kiri: Kartu jam operasional langsung dan kontak */}
           <div className="lg:col-span-5 space-y-8">
             <div className="space-y-4">
               <span className="text-xs font-bold text-teal-glow tracking-widest uppercase bg-mint-green/10 px-3 py-1.5 rounded-full inline-block">
                 Hubungi Kami
               </span>
-              <h2 className="text-3xl sm:text-4xl font-display font-bold text-navy-dark dark:text-white tracking-tight leading-none">
+              <AnimatedHeading className="text-3xl sm:text-4xl font-display font-bold text-navy-dark dark:text-white tracking-tight leading-none">
                 Hubungi & Konsultasi Sekarang
-              </h2>
+              </AnimatedHeading>
               <p className="text-slate-500 dark:text-slate-400 font-light leading-relaxed">
                 Butuh asupan khusus, tebus resep obat keras, atau memiliki pertanyaan seputar cara mengonsumsi obat bebas secara berkala? Jangan sungkan untuk menghubungi tim ahli kami.
               </p>
             </div>
 
-            {/* Icons deck */}
+            {/* Kumpulan Ikon */}
             <div className="space-y-4">
               
               <div className="p-4 rounded-xl bg-white dark:bg-navy-charcoal border border-slate-100 dark:border-white/10 flex items-center gap-4 hover:border-mint-green/20 transition-colors">
@@ -120,7 +125,7 @@ Pesan: ${data.message}`;
             </div>
           </div>
 
-          {/* Right Column: Interactive client contact form */}
+          {/* Kolom Kanan: Formulir kontak klien interaktif */}
           <div className="lg:col-span-7 bg-white dark:bg-navy-charcoal p-8 rounded-[32px] border border-slate-100 dark:border-white/10 shadow-sm relative overflow-hidden">
             <div className="absolute top-0 right-0 w-24 h-2 bg-gradient-to-l from-mint-green to-teal-glow" />
 
@@ -131,10 +136,10 @@ Pesan: ${data.message}`;
 
             <form id="contact-form" onSubmit={handleSubmit(onSubmitForm)} className="space-y-4">
               
-              {/* Row 1: Name and Phone */}
+              {/* Baris 1: Nama dan Telepon */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 
-                {/* Name */}
+                {/* Nama */}
                 <div className="space-y-1">
                   <label htmlFor="form-input-name" className="text-xs font-semibold text-slate-600 dark:text-slate-300 block">
                     Nama Lengkap Anda *
@@ -159,7 +164,7 @@ Pesan: ${data.message}`;
                   )}
                 </div>
 
-                {/* Phone number */}
+                {/* Nomor Handphone */}
                 <div className="space-y-1">
                   <label htmlFor="form-input-phone" className="text-xs font-semibold text-slate-600 dark:text-slate-300 block">
                     No. Handphone / WhatsApp *
@@ -189,12 +194,12 @@ Pesan: ${data.message}`;
 
               </div>
 
-              {/* Row 2: Service / Inquiry Type */}
+              {/* Baris 2: Layanan / Jenis Kepentingan */}
               <div className="space-y-1">
                 <label htmlFor="form-input-service" className="text-xs font-semibold text-slate-600 dark:text-slate-300 block">
                   Jenis Kepentingan *
                 </label>
-                {/* Custom select syncs its value back to react-hook-form */}
+                {/* Custom select mensinkronisasi nilainya kembali ke react-hook-form */}
                 <CustomSelect
                   options={[
                     { value: "Tanya Ketersediaan Obat", label: "Tanya Ketersediaan Obat Khusus" },
@@ -207,11 +212,11 @@ Pesan: ${data.message}`;
                   onChange={(val) => setValue("serviceType", val)}
                   className="z-30"
                 />
-                {/* Hidden input to ensure it registers correctly if needed, though setValue handles it */}
+                {/* Input tersembunyi untuk memastikan teregistrasi dengan benar jika diperlukan, meskipun setValue sudah menanganinya */}
                 <input type="hidden" {...register("serviceType")} />
               </div>
 
-              {/* Message */}
+              {/* Pesan */}
               <div className="space-y-1">
                 <label htmlFor="form-input-message" className="text-xs font-semibold text-slate-600 dark:text-slate-300 block">
                   Isi Pesan Anda *
@@ -236,7 +241,7 @@ Pesan: ${data.message}`;
                 )}
               </div>
 
-              {/* Success Notification Popup */}
+              {/* Popup Notifikasi Berhasil */}
               <AnimatePresence>
                 {isSubmitSuccess && (
                   <motion.div
@@ -257,7 +262,7 @@ Pesan: ${data.message}`;
                 )}
               </AnimatePresence>
 
-              {/* Submit Trigger */}
+              {/* Tombol Pemicu Pengiriman (Submit) */}
               <div className="pt-4">
                 <button
                   id="contact-form-submit-button"

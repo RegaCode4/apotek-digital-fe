@@ -6,7 +6,12 @@
 import { Clock, MapPin, Mail, Shield, UserCheck, RefreshCw, Star } from 'lucide-react';
 import { pharmacyProfile } from '../data/mockData';
 import SectionReveal from './ui/SectionReveal';
+import AnimatedHeading from './ui/AnimatedHeading';
 
+/**
+ * Komponen Bagian Tentang Kami (About)
+ * Menampilkan profil apotek, jam operasional, lokasi, kontak, dan fitur keunggulan layanan.
+ */
 export default function About() {
   const features = [
     {
@@ -30,25 +35,25 @@ export default function About() {
     <section id="tentang" className="py-20 md:py-28 bg-white dark:bg-navy-dark relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Heading with display font */}
+        {/* Heading Bagian dengan font display */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <SectionReveal>
             <span className="text-xs font-bold text-teal-glow tracking-widest uppercase bg-mint-green/10 px-3 py-1.5 rounded-full">
               Profil & Pelayanan Kami
             </span>
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-navy-dark dark:text-white tracking-tight mt-3">
+            <AnimatedHeading className="text-3xl sm:text-4xl font-display font-bold text-navy-dark dark:text-white tracking-tight mt-3">
               Mengenal Lebih Dekat Layanan Farmasi {pharmacyProfile.name}
-            </h2>
+            </AnimatedHeading>
             <p className="text-slate-500 dark:text-slate-400 mt-4 leading-relaxed font-light">
               Kami menggabungkan dedikasi medis tradisional dengan inovasi digital untuk menghadirkan layanan kefarmasian yang responsif, terpercaya, dan mudah diakses oleh seluruh lapisan masyarakat secara transparan.
             </p>
           </SectionReveal>
         </div>
 
-        {/* Bento Grid layout representing Core Info and Operations */}
+        {/* Tata letak Grid Bento yang mewakili Info Inti dan Operasional */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
           
-          {/* Left card: Pharmacy details overview */}
+          {/* Kartu kiri: Ringkasan detail Apotek */}
           <div className="lg:col-span-7 flex flex-col justify-between p-8 md:p-10 rounded-[32px] bg-gradient-to-br from-slate-50 to-emerald-50/10 dark:from-navy-charcoal dark:to-navy-charcoal border border-slate-100 dark:border-white/10 shadow-sm relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-32 h-32 bg-mint-green/5 rounded-full blur-2xl pointer-events-none" />
             
@@ -80,10 +85,10 @@ export default function About() {
             </SectionReveal>
           </div>
 
-          {/* Right card layout: Direct Operational Coordinates & Hours */}
+          {/* Tata letak kartu kanan: Koordinat Operasional & Jam Buka Langsung */}
           <div className="lg:col-span-5 grid grid-cols-1 gap-6">
             
-            {/* Hour detail item */}
+            {/* Item detail jam buka */}
             <SectionReveal delay={0.1}>
               <div className="p-6 rounded-2xl bg-white dark:bg-navy-charcoal border border-slate-150 dark:border-white/10 shadow-sm hover:border-mint-green/30 transition-all flex items-start gap-4">
                 <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center text-teal-glow shrink-0">
@@ -100,7 +105,7 @@ export default function About() {
               </div>
             </SectionReveal>
 
-            {/* Address detail item */}
+            {/* Item detail alamat */}
             <SectionReveal delay={0.2}>
               <div className="p-6 rounded-2xl bg-white dark:bg-navy-charcoal border border-slate-150 dark:border-white/10 shadow-sm hover:border-mint-green/30 transition-all flex items-start gap-4">
                 <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center text-teal-glow shrink-0">
@@ -118,7 +123,7 @@ export default function About() {
               </div>
             </SectionReveal>
 
-            {/* WhatsApp & Email detail item */}
+            {/* Item detail WhatsApp & Email */}
             <SectionReveal delay={0.3}>
               <div className="p-6 rounded-2xl bg-white dark:bg-navy-charcoal border border-slate-150 dark:border-white/10 shadow-sm hover:border-mint-green/30 transition-all flex items-start gap-4">
                 <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center text-teal-glow shrink-0">
@@ -149,7 +154,7 @@ export default function About() {
           </div>
         </div>
 
-        {/* Feature values block */}
+        {/* Blok nilai fitur */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, idx) => {
             const Icon = feature.icon;

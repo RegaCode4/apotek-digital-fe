@@ -8,7 +8,7 @@ const API_BASE =
   (import.meta as any).env?.VITE_API_BASE_URL || "http://localhost:8000";
 
 /**
- * Custom Error class for handling API-specific errors with HTTP status codes.
+ * Kelas Error kustom untuk menangani error spesifik dari API beserta kode status HTTP-nya.
  */
 export class ApiError extends Error {
   status?: number;
@@ -20,9 +20,9 @@ export class ApiError extends Error {
 }
 
 /**
- * Fetches the latest medicine inventory data from the backend API.
- * Maps the raw database response into standard `Medicine` objects.
- * Throws an `ApiError` if the request fails or format is invalid.
+ * Mengambil data inventaris obat terbaru dari API backend.
+ * Memetakan respons mentah dari database ke dalam format objek `Medicine` yang terstandarisasi.
+ * Akan melemparkan `ApiError` jika request gagal atau format tidak valid.
  */
 export async function fetchMedicines(): Promise<Medicine[]> {
   try {

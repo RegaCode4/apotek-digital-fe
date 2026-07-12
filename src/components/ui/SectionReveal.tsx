@@ -14,6 +14,11 @@ interface SectionRevealProps {
   className?: string;
 }
 
+/**
+ * Komponen SectionReveal
+ * Pembungkus (wrapper) animasi yang menampilkan elemen dengan efek transisi memudar (fade in) 
+ * dan bergeser ke atas saat elemen tersebut terlihat di layar (scroll viewport).
+ */
 export default function SectionReveal({
   children,
   delay = 0,
@@ -30,7 +35,7 @@ export default function SectionReveal({
       transition={{
         duration: duration,
         delay: delay,
-        ease: [0.16, 1, 0.3, 1] // Sleek cubic bezier easing (ease-out-expo)
+        ease: [0.16, 1, 0.3, 1] // Kurva transisi (easing) cubic bezier yang halus (ease-out-expo)
       }}
     >
       {children}

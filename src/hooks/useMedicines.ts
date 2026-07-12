@@ -15,15 +15,15 @@ export interface UseMedicinesResult {
 }
 
 /**
- * Custom React hook that fetches medicines live from the backend API.
- * Includes optional polling every 30 seconds to keep live inventory stock real-time.
+ * Hook React kustom yang mengambil data obat secara langsung dari API backend.
+ * Mendukung fitur polling (pengambilan data berulang) setiap 30 detik untuk menjaga stok inventaris tetap real-time.
  */
 export function useMedicines(enablePolling = true): UseMedicinesResult {
   const [medicines, setMedicines] = useState<Medicine[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
-  // Use a ref to safe-guard against state updates after on-mount unmounts
+  // Gunakan ref untuk mencegah update state (memory leak) jika komponen sudah di-unmount
   const isMountedRef = useRef<boolean>(true);
 
   const loadData = useCallback(async (showLoadingState = false) => {
@@ -47,14 +47,14 @@ export function useMedicines(enablePolling = true): UseMedicinesResult {
     }
   }, []);
 
-  // Initial fetch on mount
+  // Pengambilan data pertama kali saat komponen dimuat (mount)
   useEffect(() => {
     isMountedRef.current = true;
     loadData(true);
 
     let intervalId: any = null;
     if (enablePolling) {
-      // Poll every 30 seconds to sync live stock levels seamlessly
+      // Lakukan polling setiap 30 detik untuk sinkronisasi level stok secara live
       intervalId = setInterval(() => {
         loadData(false);
       }, 30000);

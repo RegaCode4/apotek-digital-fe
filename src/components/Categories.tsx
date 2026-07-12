@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { buildCategories, MedicineCategory, Medicine } from '../data/mockData';
 import SectionReveal from './ui/SectionReveal';
+import AnimatedHeading from './ui/AnimatedHeading';
 
 interface CategoriesProps {
   selectedCategory: string;
@@ -15,22 +16,22 @@ interface CategoriesProps {
   medicines?: Medicine[];
 }
 
-// Map of icon names to actual Lucide component for dynamic rendering
+// Pemetaan nama ikon ke komponen Lucide asli untuk rendering dinamis
 const iconMap: Record<string, LucideIcon> = {
   Pill, HeartPulse, Brain, ShieldAlert, Wind, FlaskConical, Ribbon, Hand,
   Bone, Eye, Stethoscope, Droplet, Bug, Package, Sparkles, LayoutGrid,
 };
 
 /**
- * Categories Section Component
- * Displays medicine categories in a bento grid format.
- * Allows users to select a category which will smoothly scroll to the availability section.
+ * Komponen Bagian Kategori
+ * Menampilkan kategori obat dalam format bento grid.
+ * Memungkinkan pengguna untuk memilih kategori yang kemudian akan menggulir layar dengan halus ke bagian ketersediaan obat.
  */
 export default function Categories({ selectedCategory, setSelectedCategory, medicines = [] }: CategoriesProps) {
-  // Build category statistics based on current medicines data
+  // Susun statistik kategori berdasarkan data obat saat ini
   const categories = buildCategories(medicines);
 
-  // Handles clicking a category card: updates selected category and scrolls to search section
+  // Menangani klik pada kartu kategori: perbarui kategori terpilih dan gulir ke bagian pencarian
   const handleCategoryClick = (categoryId: string) => {
     setSelectedCategory(categoryId);
     const element = document.querySelector('#cek-ketersediaan');
@@ -44,22 +45,22 @@ export default function Categories({ selectedCategory, setSelectedCategory, medi
     <section id="kategori-obat" className="py-20 md:py-24 bg-slate-50/50 dark:bg-navy-charcoal/30 border-y border-slate-100 dark:border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Title Block */}
+        {/* Blok Judul */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <SectionReveal>
             <span className="text-xs font-bold text-teal-glow tracking-widest uppercase bg-mint-green/10 px-3 py-1.5 rounded-full">
               Katalog Farmasi
             </span>
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-navy-dark dark:text-white tracking-tight mt-3">
+            <AnimatedHeading className="text-3xl sm:text-4xl font-display font-bold text-navy-dark dark:text-white tracking-tight mt-3">
               Telusuri Berdasarkan Kategori Obat
-            </h2>
+            </AnimatedHeading>
             <p className="text-slate-500 dark:text-slate-400 mt-4 leading-relaxed font-light">
               Pilih klaster obat di bawah ini untuk melihat ketersediaan stok, takaran dosis umum, informasi kewajiban resep praktisi medis, dan penawaran harganya secara instan.
             </p>
           </SectionReveal>
         </div>
 
-        {/* Marquee Banner */}
+        {/* Spanduk Berjalan (Marquee) */}
         <div className="relative overflow-hidden w-full bg-navy-dark py-4 rounded-3xl mb-12 shadow-sm border border-white/5 flex items-center select-none">
           <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-navy-dark to-transparent z-10 pointer-events-none" />
           <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-navy-dark to-transparent z-10 pointer-events-none" />
@@ -75,7 +76,7 @@ export default function Categories({ selectedCategory, setSelectedCategory, medi
           </div>
         </div>
 
-        {/* Categories Bento Grid */}
+        {/* Grid Bento Kategori */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {categories.map((cat: MedicineCategory, idx: number) => {
             const IconComponent = iconMap[cat.iconName] || LayoutGrid;

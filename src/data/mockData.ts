@@ -20,7 +20,7 @@ export interface PharmacyProfile {
   googleMapsShareUrl: string;
 }
 
-// 1:1 Mirror of Laravel Database schema shown in screenshot
+// Cermin 1:1 dari skema Database Laravel yang ada di screenshot
 export interface Category {
   id: number;
   name: string;

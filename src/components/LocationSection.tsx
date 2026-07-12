@@ -6,24 +6,25 @@
 import { MapPin, Navigation, Map, Compass, ExternalLink } from "lucide-react";
 import { pharmacyProfile } from "../data/mockData";
 import SectionReveal from "./ui/SectionReveal";
+import AnimatedHeading from "./ui/AnimatedHeading";
 
 /**
- * Location Section Component
- * Displays the physical pharmacy address, transit information, and an embedded Google Maps view.
+ * Komponen Bagian Lokasi (Location Section)
+ * Menampilkan alamat fisik apotek, informasi transportasi umum, dan tampilan sematan (embed) Google Maps.
  */
 export default function LocationSection() {
   return (
     <section id="lokasi" className="py-20 md:py-28 bg-white dark:bg-navy-dark relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
+        {/* Header Bagian (Section Header) */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <SectionReveal>
             <span className="text-xs font-bold text-teal-glow tracking-widest uppercase bg-mint-green/10 px-3 py-1.5 rounded-full">
               Peta Lokasi Fisik
             </span>
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-navy-dark dark:text-white tracking-tight mt-3">
+            <AnimatedHeading className="text-3xl sm:text-4xl font-display font-bold text-navy-dark dark:text-white tracking-tight mt-3">
               Kunjungi Apotek Kami Secara Fisik
-            </h2>
+            </AnimatedHeading>
             <p className="text-slate-500 dark:text-slate-400 mt-3 font-light leading-relaxed">
               Kami berlokasi strategis di pusat kota dengan akses mudah, tempat
               parkir aman, dan ruang konsultasi privat apoteker yang sejuk untuk
@@ -32,9 +33,9 @@ export default function LocationSection() {
           </SectionReveal>
         </div>
 
-        {/* Location Grid Block */}
+        {/* Blok Grid Lokasi */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          {/* Left Column: Direct address panel */}
+          {/* Kolom Kiri: Panel Alamat Langsung */}
           <div className="lg:col-span-5 flex flex-col justify-between p-8 md:p-10 rounded-[32px] bg-navy-dark text-white shadow-xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-44 h-44 bg-mint-green/5 rounded-full blur-3xl pointer-events-none" />
 
@@ -60,7 +61,7 @@ export default function LocationSection() {
                 </div>
               </div>
 
-              {/* Transit hints */}
+              {/* Petunjuk Transportasi (Transit) */}
               <div className="space-y-4 pt-6 border-t border-white/15">
                 <div className="flex gap-3">
                   <Navigation className="w-5 h-5 text-mint-green shrink-0 mt-0.5" />
@@ -93,7 +94,7 @@ export default function LocationSection() {
               </div>
             </SectionReveal>
 
-            {/* Direct Open in Maps Link */}
+            {/* Tautan Buka Langsung di Maps */}
             <div className="pt-8 mt-8 border-t border-white/10">
               <a
                 id="location-cta-open-maps-directions"
@@ -108,9 +109,9 @@ export default function LocationSection() {
             </div>
           </div>
 
-          {/* Right Column: Google Maps IFrame wrapper (Sleek minimalist panel styling) */}
+          {/* Kolom Kanan: Pembungkus IFrame Google Maps (Gaya panel minimalis yang rapi) */}
           <div className="lg:col-span-7 h-[380px] lg:h-auto min-h-[400px] rounded-[32px] border border-slate-100 dark:border-white/10 shadow-sm overflow-hidden relative bg-slate-50 dark:bg-navy-charcoal group">
-            {/* Custom overlay message that user is viewing Google Maps */}
+            {/* Pesan overlay kustom yang menunjukkan pengguna sedang melihat Google Maps */}
             <div className="absolute top-4 right-4 bg-white/95 dark:bg-navy-charcoal/95 backdrop-blur-md px-4 py-2.5 rounded-xl text-[11px] font-medium text-slate-700 dark:text-slate-300 shadow-md border border-slate-100 dark:border-white/10 z-10 flex items-center gap-2 pointer-events-none transition-opacity duration-300 group-hover:opacity-100">
               <MapPin className="w-4 h-4 text-emerald-600 dark:text-emerald-400 animate-bounce" />
               <span>Kec. Pauh, Kota Padang</span>

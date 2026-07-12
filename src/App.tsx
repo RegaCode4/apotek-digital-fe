@@ -3,7 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState } from 'react';
+import { useState, useLayoutEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollSmoother } from 'gsap/ScrollSmoother';
+
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import BottleShowcase from './components/BottleShowcase';
@@ -22,55 +27,69 @@ export default function App() {
   const { medicines, isLoading, error, refetch } = useMedicines();
   const { isDark, toggleDark } = useDarkMode();
 
+  useLayoutEffect(() => {
+    // Buat smooth scroller PERTAMA KALI!
+    let smoother = ScrollSmoother.create({
+      smooth: 2, // tingkatkan kehalusan (smoothness)
+      effects: true,
+      normalizeScroll: true, // paksa perilaku gulir standar di semua perangkat (sangat halus)
+      smoothTouch: 0.1
+    });
+
+    return () => {
+      smoother.kill();
+    };
+  }, []);
+
   return (
-    <div id="app-viewport-root" className="min-h-screen flex flex-col justify-between selection:bg-mint-green selection:text-navy-dark dark:bg-navy-dark dark:text-slate-200">
+    <div id="app-viewport-root" className="min-h-screen selection:bg-mint-green selection:text-navy-dark dark:bg-navy-dark dark:text-slate-200">
       
-      {/* Sticky Header Navbar */}
+      {/* Header Navbar Tetap (Sticky) */}
       <Navbar isDark={isDark} toggleDark={toggleDark} />
 
-      {/* Main Page Layout Sections */}
-      <main className="flex-grow">
-        
-        {/* 1. Hero Block */}
-        <Hero />
+      <div id="smooth-wrapper">
+        <div id="smooth-content" className="flex flex-col justify-between min-h-screen">
+          {/* Bagian Tata Letak Halaman Utama */}
+          <main className="flex-grow">
+            
+            {/* 1. Blok Hero (Tampilan Utama) */}
+            <Hero />
 
-        {/* 1.5. Interactive GSAP Bottle Scroll Showcase */}
-        <BottleShowcase />
+            {/* 1.5. Etalase Gulir Botol Interaktif GSAP */}
+            <BottleShowcase />
 
-        {/* 2. About Pharm Profile Bento Grid */}
-        <About />
+            {/* 2. Grid Bento Profil Apotek (Tentang) */}
+            <About />
 
-        {/* 3. Interactive Category Grid (filters Cek Ketersediaan list) */}
-        <Categories 
-          selectedCategory={selectedCategory} 
-          setSelectedCategory={setSelectedCategory} 
-          medicines={medicines}
-        />
+            {/* 3. Grid Kategori Interaktif (menyaring daftar Cek Ketersediaan) */}
+            <Categories 
+              selectedCategory={selectedCategory} 
+              setSelectedCategory={setSelectedCategory} 
+              medicines={medicines}
+            />
 
-        {/* 4. Real-time Stock Check Panel */}
-        <MedicineAvailability 
-          selectedCategory={selectedCategory} 
-          setSelectedCategory={setSelectedCategory} 
-          medicines={medicines}
-          isLoading={isLoading}
-          error={error}
-          refetch={refetch}
-        />
+            {/* 4. Panel Cek Stok Real-time (Waktu Nyata) */}
+            <MedicineAvailability 
+              selectedCategory={selectedCategory} 
+              setSelectedCategory={setSelectedCategory} 
+              medicines={medicines}
+              isLoading={isLoading}
+              error={error}
+              refetch={refetch}
+            />
 
-        {/* 5. Geographic Map Coordinates Section */}
-        <LocationSection />
+            {/* 5. Bagian Koordinat Peta Geografis */}
+            <LocationSection />
 
-        {/* 6. Client-Validated Contact Form */}
-        <ContactSection />
+            {/* 6. Formulir Kontak yang Divalidasi Klien */}
+            <ContactSection />
 
-      </main>
+          </main>
 
-      {/* 7. Footer navigation map links */}
-      <Footer />
-
-      {/* 8. Timed greeting floating WhatsApp button */}
-      <FloatingWhatsApp />
-
+          {/* 7. Tautan peta navigasi Footer */}
+          <Footer />
+        </div>
+      </div>
     </div>
   );
 }

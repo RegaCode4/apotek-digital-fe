@@ -6,22 +6,22 @@
 import { useState, useEffect, useCallback } from 'react';
 
 /**
- * Custom hook to manage dark mode state.
- * - Persists preference in localStorage under key 'theme'
- * - Falls back to `prefers-color-scheme: dark` if no stored preference
- * - Toggles `dark` class on `<html>` element for Tailwind CSS v4 @custom-variant
+ * Hook kustom untuk mengelola state mode gelap (dark mode).
+ * - Menyimpan preferensi pengguna di localStorage dengan key 'theme'
+ * - Otomatis menggunakan `prefers-color-scheme: dark` dari sistem jika belum ada preferensi
+ * - Menambahkan/menghapus class `dark` pada elemen `<html>` untuk Tailwind CSS v4 @custom-variant
  */
 export function useDarkMode() {
   const [isDark, setIsDark] = useState<boolean>(() => {
-    // Check localStorage first
+    // Periksa preferensi tersimpan di localStorage terlebih dahulu
     const stored = localStorage.getItem('theme');
     if (stored === 'dark') return true;
     if (stored === 'light') return false;
-    // Fallback to system preference
+    // Jika tidak ada, gunakan preferensi dari sistem (OS)
     return window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
 
-  // Sync the `dark` class on <html> whenever isDark changes
+  // Sinkronkan penambahan/penghapusan class `dark` pada <html> setiap kali state isDark berubah
   useEffect(() => {
     const root = document.documentElement;
     if (isDark) {
@@ -33,11 +33,11 @@ export function useDarkMode() {
     }
   }, [isDark]);
 
-  // Listen for system preference changes (when no stored preference)
+  // Dengarkan perubahan preferensi sistem (jika belum ada preferensi tersimpan)
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = (e: MediaQueryListEvent) => {
-      // Only auto-switch if user hasn't manually set a preference
+      // Hanya beralih otomatis jika pengguna belum mengatur preferensi manual
       const stored = localStorage.getItem('theme');
       if (!stored) {
         setIsDark(e.matches);

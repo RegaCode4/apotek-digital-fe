@@ -8,10 +8,14 @@ import { motion, AnimatePresence } from 'motion/react';
 import { MessageCircle, X } from 'lucide-react';
 import { pharmacyProfile } from '../data/mockData';
 
+/**
+ * Komponen FloatingWhatsApp
+ * Tombol WhatsApp mengambang di sudut bawah layar dengan tooltip sapaan otomatis.
+ */
 export default function FloatingWhatsApp() {
   const [showTooltip, setShowTooltip] = useState(false);
 
-  // Automatically trigger WhatsApp welcome tooltip after 4 seconds
+  // Secara otomatis memunculkan (trigger) tooltip sapaan WhatsApp setelah 4 detik
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowTooltip(true);
@@ -26,7 +30,7 @@ export default function FloatingWhatsApp() {
   return (
     <div id="floating-whatsapp-container" className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3 select-none">
       
-      {/* Dynamic Pop-up Tooltip */}
+      {/* Tooltip Pop-up Dinamis */}
       <AnimatePresence>
         {showTooltip && (
           <motion.div
@@ -36,7 +40,7 @@ export default function FloatingWhatsApp() {
             className="bg-white dark:bg-navy-charcoal p-4 rounded-2xl shadow-xl border border-slate-100 dark:border-white/10 max-w-[260px] relative text-slate-800 dark:text-slate-200"
             id="whatsapp-greeting-tooltip"
           >
-            {/* Close button */}
+            {/* Tombol Tutup */}
             <button
               onClick={() => setShowTooltip(false)}
               className="absolute top-2 right-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 focus:outline-none"
@@ -57,16 +61,16 @@ export default function FloatingWhatsApp() {
               </p>
             </div>
 
-            {/* Micro speech bubble triangle */}
+            {/* Segitiga mikro balon percakapan */}
             <div className="absolute bottom-[-6px] right-6 w-3 h-3 bg-white dark:bg-navy-charcoal border-r border-b border-slate-100 dark:border-white/10 rotate-45" />
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Floating Button */}
+      {/* Tombol Mengambang (Floating Button) */}
       <div className="relative">
         
-        {/* Pulsing Back aura ring */}
+        {/* Cincin aura berdenyut di belakang */}
         <div className="absolute inset-0 rounded-full bg-emerald-500/25 wa-pulse scale-125 -z-10" />
 
         <a

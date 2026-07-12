@@ -17,6 +17,10 @@ import {
 } from "lucide-react";
 import { pharmacyProfile } from "../data/mockData";
 
+/**
+ * Komponen Footer
+ * Bagian penutup bawah situs yang memuat navigasi cepat, kontak, jam operasional, dan info hak cipta.
+ */
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -52,7 +56,7 @@ export default function Footer() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-12 border-b border-white/5">
-          {/* Column 1: Brand & Desc */}
+          {/* Kolom 1: Merek & Deskripsi */}
           <div className="lg:col-span-4 space-y-6">
             <div className="flex items-center gap-2">
               <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-mint-green to-teal-glow flex items-center justify-center text-white">
@@ -69,7 +73,7 @@ export default function Footer() {
               penuh oleh tim apoteker berlisensi resmi.
             </p>
 
-            {/* Credential Seals */}
+            {/* Segel Kredensial */}
             <div className="flex items-center gap-3 pt-2">
               <div className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-white/5 border border-white/10 text-[9px] text-teal-glow font-bold uppercase tracking-wider">
                 <ShieldCheck className="w-3.5 h-3.5" />
@@ -81,7 +85,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2: Sitemap Links */}
+          {/* Kolom 2: Tautan Peta Situs (Sitemap) */}
           <div className="lg:col-span-2 space-y-4">
             <h4 className="font-display font-semibold text-xs text-white uppercase tracking-wider">
               Navigasi Cepat
@@ -101,7 +105,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Contact details summary */}
+          {/* Kolom 3: Ringkasan detail kontak */}
           <div className="lg:col-span-3 space-y-4">
             <h4 className="font-display font-semibold text-xs text-white uppercase tracking-wider">
               Kontak Utama
@@ -136,7 +140,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 4: Operational & Social Deck */}
+          {/* Kolom 4: Operasional & Media Sosial */}
           <div className="lg:col-span-3 space-y-4">
             <h4 className="font-display font-semibold text-xs text-white uppercase tracking-wider">
               Jam operasional
@@ -148,7 +152,7 @@ export default function Footer() {
               <p>08:00 WIB - 20:00 WIB</p>
             </div>
 
-            {/* Social media connections */}
+            {/* Koneksi media sosial */}
             <div className="pt-4 flex items-center gap-3">
               <a
                 href="https://instagram.com"
@@ -172,7 +176,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Copy and Login bottom row */}
+        {/* Baris bawah hak cipta (Copyright) */}
         <div className="pt-8 flex flex-col items-center justify-center gap-4 text-xs text-slate-500 font-light">
           <div className="flex items-center gap-1">
             <span>

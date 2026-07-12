@@ -3,12 +3,103 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { motion } from 'motion/react';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
+import { animate, splitText, stagger } from 'animejs';
 import { Search, Calendar, MessageSquare, ArrowDown, Activity, ShieldCheck, Heart, Sparkles } from 'lucide-react';
 import { pharmacyProfile } from '../data/mockData';
 
 export default function Hero() {
+  const titleRef = useRef<HTMLHeadingElement>(null);
+
+  const checkIsOpen = () => {
+    const now = new Date();
+    const day = now.getDay(); // 0: Minggu, 1: Senin, ..., 6: Sabtu
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const currentTime = hours + minutes / 60;
+
+    let openTime, closeTime;
+    let timeString = '';
+
+    if (day >= 1 && day <= 5) {
+      // Hari kerja (Senin - Jumat)
+      openTime = 7;
+      closeTime = 22;
+      timeString = pharmacyProfile.operatingHours.weekday.split(': ')[1];
+    } else {
+      // Akhir pekan (Sabtu - Minggu)
+      openTime = 8;
+      closeTime = 20;
+      timeString = pharmacyProfile.operatingHours.weekend.split(': ')[1];
+    }
+
+    const isOpen = currentTime >= openTime && currentTime < closeTime;
+    return { isOpen, timeString };
+  };
+
+  const [storeStatus, setStoreStatus] = useState(checkIsOpen());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStoreStatus(checkIsOpen());
+    }, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Pengaturan Efek Hover 3D
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 20 });
+  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 20 });
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  useEffect(() => {
+    let isMounted = true;
+    let split: any = null;
+    
+    document.fonts.ready.then(() => {
+      if (!isMounted || !titleRef.current) return;
+      
+      split = splitText(titleRef.current, {
+        lines: { wrap: 'clip' },
+      });
+
+      split.addEffect(({ lines }: any) => animate(lines, {
+        y: ['100%', '0%'],
+        duration: 750,
+        ease: 'out(3)',
+        delay: stagger(200),
+      }));
+    });
+
+    return () => {
+      isMounted = false;
+      if (split) {
+        split.revert();
+      }
+    };
+  }, []);
   const handleScrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
     const element = document.querySelector(id);
@@ -30,41 +121,41 @@ export default function Hero() {
       id="beranda" 
       className="relative min-h-screen pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden flex items-center bg-gradient-to-b from-emerald-50/20 via-white to-transparent dark:from-navy-dark dark:via-navy-dark dark:to-navy-dark"
     >
-      {/* Decorative blurry backgrounds */}
-      <div className="absolute top-20 right-[-10%] w-[500px] h-[500px] bg-mint-green/10 dark:bg-mint-green/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 left-[-10%] w-[400px] h-[400px] bg-teal-glow/5 dark:bg-teal-glow/3 rounded-full blur-3xl pointer-events-none" />
+      {/* Latar belakang blur dekoratif (dihapus untuk mengurangi bayangan hijau berlebih) */}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
-          {/* Hero Left Content */}
+          {/* Konten Kiri Hero */}
           <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
             
-            {/* Live Operational Status Badge */}
+            {/* Badge Status Operasional Langsung */}
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5, ease: 'easeOut' }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-mint-green/10 border border-mint-green/30 text-teal-glow text-xs font-semibold tracking-wide uppercase"
+              className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-semibold tracking-wide uppercase ${
+                storeStatus.isOpen 
+                  ? "bg-mint-green/10 border-mint-green/30 text-teal-glow" 
+                  : "bg-red-500/10 border-red-500/30 text-red-500"
+              }`}
             >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-mint-green opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-mint-green"></span>
+                {storeStatus.isOpen && <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-mint-green opacity-75"></span>}
+                <span className={`relative inline-flex rounded-full h-2 w-2 ${storeStatus.isOpen ? "bg-mint-green" : "bg-red-500"}`}></span>
               </span>
-              <span>Buka Sekarang • {pharmacyProfile.operatingHours.weekday.split(': ')[1]}</span>
+              <span>{storeStatus.isOpen ? "Buka Sekarang" : "Tutup Sekarang"} • {storeStatus.timeString}</span>
             </motion.div>
 
-            {/* Giant Title Typography */}
+            {/* Tipografi Judul Besar */}
             <div className="space-y-4">
-              <motion.h1
-                initial={{ y: 30, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.1, duration: 0.7 }}
+              <h1
+                ref={titleRef}
                 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-navy-dark dark:text-white tracking-tight leading-[1.1]"
               >
                 Apotek Modern, <br className="hidden md:inline" />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-glow to-emerald-600 dark:from-mint-green dark:to-teal-glow block sm:inline">Pelayanan Terpercaya</span>
-              </motion.h1>
+              </h1>
 
               <motion.p
                 initial={{ y: 20, opacity: 0 }}
@@ -76,7 +167,7 @@ export default function Hero() {
               </motion.p>
             </div>
 
-            {/* Action Buttons */}
+            {/* Tombol Aksi */}
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -95,7 +186,7 @@ export default function Hero() {
 
               <a
                 id="hero-cta-whatsapp-secondary"
-                href={`https://wa.me/6282278954406?text=${preFilledWhatsAppMessage}`}
+                href={`https://wa.me/${pharmacyProfile.whatsApp.replace(/\D/g, '')}?text=${preFilledWhatsAppMessage}`}
                 target="_blank"
                 rel="noreferrer"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl bg-white dark:bg-navy-charcoal border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-200 font-semibold hover:border-mint-green/50 hover:bg-slate-50 dark:hover:bg-navy-elevated hover:scale-[1.01] active:scale-95 transition-all group"
@@ -105,7 +196,7 @@ export default function Hero() {
               </a>
             </motion.div>
 
-            {/* Micro Benefits Grid */}
+            {/* Grid Manfaat Mikro */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -136,16 +227,20 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Hero Right Visual: Elegant Floating Card Fan Stack (Pallet Ross style) */}
-          <div className="lg:col-span-5 relative flex items-center justify-center min-h-[400px] sm:min-h-[460px] select-none">
+          {/* Visual Kanan Hero: Tumpukan Kartu Melayang Elegan */}
+          <div className="lg:col-span-5 relative flex items-center justify-center min-h-[400px] sm:min-h-[460px] select-none" style={{ perspective: 1000 }}>
             
-            {/* Background glowing panel */}
-            <div className="absolute w-[320px] h-[325px] rounded-[50px] bg-gradient-to-tr from-mint-green/10 via-teal-glow/15 to-transparent blur-xl" />
+            {/* Panel glowing latar belakang (dihapus untuk mengurangi bayangan hijau berlebih) */}
 
-            {/* Floating items stacked elegantly */}
-            <div className="relative w-full max-w-[400px] h-[360px] flex items-center justify-center">
+            {/* Item melayang bertumpuk dengan elegan */}
+            <motion.div 
+              className="relative w-full max-w-[400px] h-[360px] flex items-center justify-center cursor-pointer"
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+              style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+            >
 
-              {/* Card 1: Decolgen back leftcard */}
+              {/* Kartu 1: Decolgen (kiri belakang) */}
               <motion.div
                 initial={{ opacity: 0, rotate: -20, x: -60, y: -20 }}
                 animate={{ opacity: 1, rotate: -15, x: -75, y: -25 }}
@@ -166,7 +261,7 @@ export default function Hero() {
                 </div>
               </motion.div>
 
-              {/* Card 2: Center Masterpiece card representing the premium digital system */}
+              {/* Kartu 2: Kartu utama di tengah mewakili sistem digital premium */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.9, y: 10 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -190,7 +285,7 @@ export default function Hero() {
                 </div>
               </motion.div>
 
-              {/* Card 3: Floating Amoxicillin right card (requires prescription indicator) */}
+              {/* Kartu 3: Amoxicillin melayang (kanan, dengan indikator wajib resep) */}
               <motion.div
                 initial={{ opacity: 0, rotate: 18, x: 60, y: 30 }}
                 animate={{ opacity: 1, rotate: 12, x: 75, y: 25 }}
@@ -211,7 +306,7 @@ export default function Hero() {
                 </div>
               </motion.div>
 
-              {/* Floating micro user tag / chips */}
+              {/* Tag/chip mikro pengguna yang melayang */}
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
@@ -224,14 +319,15 @@ export default function Hero() {
                 animate={{ y: [0, 8, 0] }}
                 transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
                 className="absolute bottom-4 right-2 bg-gradient-to-r from-teal-glow to-teal-600 text-white text-[10px] font-semibold py-1 px-3 rounded-full shadow-lg z-30 flex items-center gap-1.5"
+                style={{ z: 20 } as any}
               >
                 <span>@kemenkes_bpom</span>
               </motion.div>
-            </div>
+            </motion.div>
           </div>
         </div>
 
-        {/* Scroll Indication Arrow */}
+        {/* Panah Indikator Scroll */}
         <div className="flex justify-center mt-8 md:mt-12">
           <a
             href="#tentang"

@@ -12,13 +12,13 @@ interface NavbarProps {
 }
 
 /**
- * Main Navigation Bar Component
- * Features a dynamic scrolling effect, mobile menu toggle, and dark mode switch.
+ * Komponen Bilah Navigasi Utama (Navbar)
+ * Memiliki fitur efek gulir dinamis, toggle menu seluler, dan tombol sakelar mode gelap.
  */
 export default function Navbar({ isDark, toggleDark }: NavbarProps) {
-  // State to track if user has scrolled down (for navbar visual transition)
+  // State untuk melacak apakah pengguna sudah menggulir ke bawah (untuk transisi visual navbar)
   const [isScrolled, setIsScrolled] = useState(false);
-  // State to manage mobile menu visibility
+  // State untuk mengatur visibilitas menu seluler (mobile)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const panelInitial = { opacity: 0, height: 0 };
@@ -34,7 +34,7 @@ export default function Navbar({ isDark, toggleDark }: NavbarProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Array of navigation links for both desktop and mobile menus
+  // Array tautan navigasi untuk menu desktop dan seluler
   const navLinks = [
     { name: "Beranda", href: "#beranda" },
     { name: "Tentang", href: "#tentang" },
@@ -43,7 +43,7 @@ export default function Navbar({ isDark, toggleDark }: NavbarProps) {
     { name: "Hubungi Kontak", href: "#kontak" },
   ];
 
-  // Helper to smoothly scroll to a section on the page based on its ID
+  // Helper untuk menggulir halus ke suatu bagian di halaman berdasarkan ID-nya
   const handleScrollToSegment = (
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string,
@@ -104,7 +104,7 @@ export default function Navbar({ isDark, toggleDark }: NavbarProps) {
               </div>
             </a>
 
-            {/* Desktop Navigation */}
+            {/* Navigasi Desktop */}
             <nav id="desktop-nav" className="hidden lg:flex items-center gap-8">
               {navLinks.map((link) => (
                 <a
@@ -124,9 +124,9 @@ export default function Navbar({ isDark, toggleDark }: NavbarProps) {
               ))}
             </nav>
 
-            {/* Desktop Main CTA + Dark Mode Toggle */}
+            {/* Tombol CTA Utama Desktop + Toggle Mode Gelap */}
             <div className="hidden lg:flex items-center gap-3">
-              {/* Dark Mode Toggle */}
+              {/* Toggle Mode Gelap */}
               <button
                 id="dark-mode-toggle-desktop"
                 onClick={toggleDark}
@@ -153,7 +153,7 @@ export default function Navbar({ isDark, toggleDark }: NavbarProps) {
                 </motion.div>
               </button>
 
-              {/* CTA Button */}
+              {/* Tombol CTA (Call to Action) */}
               <a
                 id="cta-cek-ketersediaan-desktop"
                 href="#cek-ketersediaan"
@@ -172,9 +172,9 @@ export default function Navbar({ isDark, toggleDark }: NavbarProps) {
               </a>
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Tombol Menu Seluler */}
             <div className="flex lg:hidden items-center gap-2">
-              {/* Dark Mode Toggle Mobile */}
+              {/* Toggle Mode Gelap Seluler */}
               <button
                 id="dark-mode-toggle-mobile"
                 onClick={toggleDark}
@@ -222,7 +222,7 @@ export default function Navbar({ isDark, toggleDark }: NavbarProps) {
         </div>
       </header>
 
-      {/* Mobile Menu Panel */}
+      {/* Panel Menu Seluler */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div

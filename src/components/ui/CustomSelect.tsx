@@ -20,6 +20,10 @@ interface CustomSelectProps {
   className?: string;
 }
 
+/**
+ * Komponen CustomSelect
+ * Dropdown kustom dengan animasi buka/tutup yang mendukung mode gelap (dark mode).
+ */
 export default function CustomSelect({
   options,
   value,
@@ -30,7 +34,7 @@ export default function CustomSelect({
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Close dropdown when clicking outside
+  // Tutup dropdown (menu tarik-turun) ketika klik di luar area
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -48,7 +52,7 @@ export default function CustomSelect({
 
   return (
     <div ref={containerRef} className={`relative select-none ${className}`}>
-      {/* Trigger Button */}
+      {/* Tombol Pemicu */}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
@@ -65,7 +69,7 @@ export default function CustomSelect({
         </motion.div>
       </button>
 
-      {/* Dropdown Menu */}
+      {/* Menu Dropdown */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
