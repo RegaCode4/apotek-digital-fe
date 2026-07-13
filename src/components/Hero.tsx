@@ -154,7 +154,7 @@ export default function Hero() {
                 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-navy-dark dark:text-white tracking-tight leading-[1.1]"
               >
                 Apotek Modern, <br className="hidden md:inline" />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-glow to-emerald-600 dark:from-mint-green dark:to-teal-glow block sm:inline">Pelayanan Terpercaya</span>
+                <span style={{ fontFamily: 'Latenza, serif' }} className="text-transparent bg-clip-text bg-gradient-to-r from-teal-glow to-emerald-600 dark:from-mint-green dark:to-teal-glow block sm:inline italic font-light">Pelayanan Terpercaya</span>
               </h1>
 
               <motion.p
@@ -248,9 +248,9 @@ export default function Hero() {
                 className="absolute w-52 p-5 rounded-3xl bg-white dark:bg-navy-charcoal border border-slate-100 dark:border-white/10 shadow-xl opacity-90"
               >
                 <div className="flex justify-between items-start mb-3">
-                  <div className="w-8 h-8 rounded-lg bg-pink-50 dark:bg-pink-500/10 flex items-center justify-center text-pink-500">
+                  {/* <div className="w-8 h-8 rounded-lg bg-pink-50 dark:bg-pink-500/10 flex items-center justify-center text-pink-500">
                     <Heart className="w-4 h-4 fill-pink-500" />
-                  </div>
+                  </div> */}
                   <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400 font-bold">Kategori: Alergi</span>
                 </div>
                 <h4 className="font-display font-bold text-sm text-slate-800 dark:text-slate-100">Decolgen Kaplet</h4>
@@ -270,7 +270,7 @@ export default function Hero() {
               >
                 <div className="flex justify-between items-center mb-4">
                   <span className="text-[9px] px-2.5 py-1 rounded-full bg-mint-green/20 text-mint-green font-bold tracking-wider uppercase">Sistem Pintar</span>
-                  <Sparkles className="w-5 h-5 text-mint-green animate-spin-slow" />
+                  {/*<Sparkles className="w-5 h-5 text-mint-green animate-spin-slow" />*/}
                 </div>
                 <h3 className="font-display font-bold text-lg leading-tight">Gunting Resep Dokter Digital</h3>
                 <p className="text-xs text-slate-400 mt-1 font-light leading-relaxed">
