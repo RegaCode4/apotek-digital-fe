@@ -29,7 +29,7 @@ export async function fetchMedicines(): Promise<Medicine[]> {
     const url = `${API_BASE}/api/medicines`;
     const response = await fetch(url, {
       method: "GET",
-      cache: "no-store", // ✅ paksa ambil data terbaru (bukan cache)
+      cache: "no-store", //  paksa ambil data terbaru (bukan cache)
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -71,8 +71,8 @@ export async function fetchMedicines(): Promise<Medicine[]> {
         category_id:
           med.category_id !== undefined && med.category_id !== null
             ? Number(med.category_id)
-            : null, // ✅ FK angka
-        category: med.category // ✅ pertahankan sebagai OBJEK
+            : null, //  FK angka
+        category: med.category //  pertahankan sebagai OBJEK
           ? {
               id: Number(med.category.id),
               name: String(med.category.name ?? ""),

@@ -127,7 +127,6 @@ Pesan: ${data.message}`;
 
           {/* Kolom Kanan: Formulir kontak klien interaktif */}
           <div className="lg:col-span-7 bg-white dark:bg-navy-charcoal p-8 rounded-[32px] border border-slate-100 dark:border-white/10 shadow-sm relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-24 h-2 bg-gradient-to-l from-mint-green to-teal-glow" />
 
             <h3 className="font-display font-bold text-xl text-navy-dark dark:text-white mb-2">Formulir Pesan Cepat</h3>
             <p className="text-xs text-slate-400 block mb-6 font-light">
